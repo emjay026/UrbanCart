@@ -15,15 +15,22 @@ const globalStyles = StyleSheet.create({
   },
   headerContainer: {
     height: "8%",
-    borderWidth: 1,
     backgroundColor: "transparent",
     flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: 25,
+  },
+  bodyContainer: {
+    flex: 1,
+    // backgroundColor: colorScheme.background,
+    justifyContent: "center",
     alignItems: "center",
   },
   titleText: {
     fontSize: 24,
     fontWeight: "300",
-    color: colorScheme.textBlack,
+    color: "#000",
   },
   bodyHeadingText: {
     fontSize: 24,

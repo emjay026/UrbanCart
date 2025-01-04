@@ -2,8 +2,12 @@ import { StyleSheet, Text, Pre, Pressable } from "react-native";
 import React from "react";
 import globalStyles, { colorScheme } from "../GlobalStyles";
 
-const IconButton = ({ child }) => {
-  return <Pressable style={styles.container}>{child}</Pressable>;
+const IconButton = ({ child, onPress }) => {
+  return (
+    <Pressable style={styles.container} onPress={onPress}>
+      {child}
+    </Pressable>
+  );
 };
 
 export default IconButton;
