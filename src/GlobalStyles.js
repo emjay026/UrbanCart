@@ -11,7 +11,7 @@ const globalStyles = StyleSheet.create({
   safeContainer: {
     flex: 1,
     paddingTop: StatusBar.currentHeight,
-    backgroundColor: colorScheme.background.light,
+    backgroundColor: "#FFFFFF",
   },
   headerContainer: {
     height: "8%",

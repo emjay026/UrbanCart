@@ -1,8 +1,18 @@
-import { Button, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import {
+  Button,
+  Image,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import globalStyles, { colorScheme } from "../GlobalStyles";
 import BackButton from "../components/BackButton";
 import IconButton from "../components/IconButton";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import { item_data } from "../data/DummyData";
+import StarRating from "../components/StarRating";
+import ItemCard from "../components/ItemCard";
 
 const HomeScreen = ({ navigation }) => {
   return (
@@ -26,10 +36,17 @@ const HomeScreen = ({ navigation }) => {
           />
         </View>
         <Text style={styles.text}>HomeScreen</Text>
-        <Button
+        {/* <Image
+          source={item_data[0].image}
+          style={{ width: 200, height: 200, backgroundColor: "lightgray" }}
+          resizeMode="contain"
+        /> */}
+        {/* <ItemCard {...item_data[0]} /> */}
+        <ItemCard {...item_data[1]} />
+        {/* <Button
           title="Go to Item"
           onPress={() => navigation.navigate("Item")}
-        />
+        /> */}
       </View>
     </SafeAreaView>
   );
@@ -40,6 +57,7 @@ export default HomeScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#FFFFFF",
   },
   text: {
     fontSize: 40,
