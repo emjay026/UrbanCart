@@ -16,6 +16,7 @@ import ItemCard from "../components/ItemCard";
 import InputBar from "../components/InputBar";
 import ScreenHeader from "../components/ScreenHeader";
 import Octicons from "@expo/vector-icons/Octicons";
+import HomeBanner from "../components/HomeBanner";
 
 const HomeScreen = ({ navigation }) => {
   return (
@@ -43,9 +44,9 @@ const HomeScreen = ({ navigation }) => {
             console.log("Search");
           }}
         />
-
-        <ItemCard {...item_data[0]} />
-        <ItemCard {...item_data[1]} />
+        <HomeBanner />
+        {/* <ItemCard {...item_data[0]} /> */}
+        {/* <ItemCard {...item_data[1]} /> */}
       </View>
     </SafeAreaView>
   );
