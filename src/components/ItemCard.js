@@ -7,7 +7,7 @@ const ItemCard = ({ image, title, price, ratings }) => {
   return (
     <Pressable
       style={styles.pressableContainer}
-      onPress={() => navigation.navigate("Item")}
+      onPress={() => navigation.navigate("Item", { title: title })}
     >
       <View style={styles.cardContainer}>
         <Image source={image} style={styles.img} resizeMode="cover" />

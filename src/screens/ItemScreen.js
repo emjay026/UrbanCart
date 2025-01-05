@@ -3,14 +3,14 @@ import React from "react";
 import globalStyles from "../GlobalStyles";
 import BackButton from "../components/BackButton";
 
-const ItemScreen = () => {
+const ItemScreen = ({ route }) => {
   return (
     <SafeAreaView style={globalStyles.safeContainer}>
       <View style={globalStyles.headerContainer}>
         <BackButton />
       </View>
       <View style={globalStyles.bodyContainer}>
-        <Text>Item Screen</Text>
+        <Text style={styles.text}>{route.params.title}</Text>
       </View>
     </SafeAreaView>
   );
@@ -18,4 +18,9 @@ const ItemScreen = () => {
 
 export default ItemScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  text: {
+    fontSize: 30,
+    fontWeight: "bold",
+  },
+});

@@ -13,40 +13,39 @@ import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { item_data } from "../data/DummyData";
 import StarRating from "../components/StarRating";
 import ItemCard from "../components/ItemCard";
+import InputBar from "../components/InputBar";
+import ScreenHeader from "../components/ScreenHeader";
+import Octicons from "@expo/vector-icons/Octicons";
 
 const HomeScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={globalStyles.safeContainer}>
       <View style={styles.container}>
-        <View style={globalStyles.headerContainer}>
-          <View>
-            <Text style={globalStyles.titleText}>Discover</Text>
-          </View>
-          <IconButton
-            child={
-              <MaterialCommunityIcons
-                name="cart-outline"
-                size={28}
-                color={colorScheme.textBlack}
-              />
-            }
-            onPress={() => {
-              navigation.navigate("Cart");
-            }}
-          />
-        </View>
-        <Text style={styles.text}>HomeScreen</Text>
-        {/* <Image
-          source={item_data[0].image}
-          style={{ width: 200, height: 200, backgroundColor: "lightgray" }}
-          resizeMode="contain"
-        /> */}
+        <ScreenHeader
+          leftChild={<Text style={globalStyles.titleText}>Discover</Text>}
+          rightChild={
+            <IconButton
+              icon={
+                <MaterialCommunityIcons
+                  name="cart-outline"
+                  size={28}
+                  color={colorScheme.textBlack}
+                />
+              }
+              onPress={() => navigation.navigate("Cart")}
+            />
+          }
+        />
+        <InputBar
+          label={"Search"}
+          icon={<Octicons name="search" color={"#6E6E6E"} size={25} />}
+          onPress={() => {
+            console.log("Search");
+          }}
+        />
+
         <ItemCard {...item_data[0]} />
         <ItemCard {...item_data[1]} />
-        {/* <Button
-          title="Go to Item"
-          onPress={() => navigation.navigate("Item")}
-        /> */}
       </View>
     </SafeAreaView>
   );

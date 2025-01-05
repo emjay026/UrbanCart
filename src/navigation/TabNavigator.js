@@ -12,7 +12,7 @@ const TabNavigator = () => {
   return (
     <Tab.Navigator screenOptions={screenOptions}>
       <Tab.Screen
-        name="HomeTab"
+        name="Home"
         component={StackNavigator}
         options={{
           tabBarIcon: ({ color, size }) => (
