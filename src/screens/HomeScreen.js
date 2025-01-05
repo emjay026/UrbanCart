@@ -1,6 +1,8 @@
 import {
   Button,
+  FlatList,
   Image,
+  Pressable,
   SafeAreaView,
   StyleSheet,
   Text,
@@ -45,6 +47,26 @@ const HomeScreen = ({ navigation }) => {
           }}
         />
         <HomeBanner />
+        <View style={styles.categorySeperator}>
+          <Text style={styles.categoryText}>Categories</Text>
+          <Pressable>
+            <View style={styles.pressableContainer}>
+              <Text style={styles.pressableText}>See all</Text>
+            </View>
+          </Pressable>
+        </View>
+        <View style={styles.categoryList}>
+          <FlatList
+            data={Array.from(new Set(item_data.map((item) => item.category)))}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+            renderItem={({ item }) => (
+              <View style={styles.categoryItem}>
+                <Text>{item}</Text>
+              </View>
+            )}
+          />
+        </View>
         {/* <ItemCard {...item_data[0]} /> */}
         {/* <ItemCard {...item_data[1]} /> */}
       </View>
@@ -62,5 +84,33 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 40,
     fontWeight: "bold",
+  },
+  pressableText: {
+    color: colorScheme.accent,
+    fontWeight: "500",
+  },
+  categorySeperator: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "flex-end",
+    paddingHorizontal: 20,
+    marginBottom: 20,
+  },
+  categoryList: {
+    paddingLeft: 20,
+    marginBottom: 20,
+    height: 40,
+  },
+  categoryItem: {
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 10,
+    borderRadius: 10,
+    marginRight: 10,
+    borderWidth: 2,
+  },
+  categoryText: {
+    fontSize: 16,
+    fontWeight: "500",
   },
 });
