@@ -41,7 +41,7 @@ const HomeScreen = ({ navigation }) => {
           style={{ width: 200, height: 200, backgroundColor: "lightgray" }}
           resizeMode="contain"
         /> */}
-        {/* <ItemCard {...item_data[0]} /> */}
+        <ItemCard {...item_data[0]} />
         <ItemCard {...item_data[1]} />
         {/* <Button
           title="Go to Item"

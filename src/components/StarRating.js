@@ -21,9 +21,10 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
+    paddingLeft: 10,
   },
   text: {
     fontWeight: "bold",
-    marginLeft: 5,
+    paddingLeft: 5,
   },
 });
