@@ -74,7 +74,7 @@ const HomeScreen = ({ navigation }) => {
             numColumns={2}
             contentContainerStyle={{ gap: 20 }}
             columnWrapperStyle={{ gap: 20 }}
-            renderItem={({ item }) => <ItemCard {...item} />}
+            renderItem={({ item }) => <ItemCard item={item} />}
           />
         </View>
       </View>

@@ -2,25 +2,25 @@ import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import StarRating from "./StarRating";
 import { useNavigation } from "@react-navigation/native";
 
-const ItemCard = ({ image, title, price, ratings }) => {
+const ItemCard = ({ item }) => {
   const navigation = useNavigation();
   return (
-    <Pressable onPress={() => navigation.navigate("Item", { title: title })}>
+    <Pressable onPress={() => navigation.navigate("Item", { item })}>
       <View style={styles.cardContainer}>
         <View style={styles.imgContainer}>
-          <Image source={image} style={styles.img} />
+          <Image source={item.image} style={styles.img} />
         </View>
         <View style={styles.detailsContainer}>
           <View style={styles.infoContainer}>
             <View style={styles.titleContainer}>
-              <Text style={styles.titleText}>{title}</Text>
+              <Text style={styles.titleText}>{item.title}</Text>
             </View>
             <View>
-              <StarRating rating={ratings.average} />
+              <StarRating rating={item.ratings.average} />
             </View>
           </View>
           <View style={styles.priceContainer}>
-            <Text style={styles.priceText}>${price}</Text>
+            <Text style={styles.priceText}>${item.price}</Text>
           </View>
         </View>
       </View>

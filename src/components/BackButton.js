@@ -7,7 +7,7 @@ const BackButton = () => {
   const navigation = useNavigation();
   return (
     <IconButton
-      child={<AntDesign name="left" size={25} color={colorScheme.textBlack} />}
+      icon={<AntDesign name="left" size={24} color={colorScheme.primary} />}
       onPress={() => navigation.goBack()} //navigation prop will not work here
     />
   );
