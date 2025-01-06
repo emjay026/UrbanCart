@@ -17,7 +17,7 @@ const ItemScreen = ({ route }) => {
   }, [isFavorite]);
 
   return (
-    <SafeAreaView style={globalStyles.safeContainer}>
+    <SafeAreaView style={styles.safeContainer}>
       <ScreenHeader
         leftChild={<BackButton />}
         rightChild={
@@ -44,6 +44,7 @@ const ItemScreen = ({ route }) => {
         <View style={styles.imgContainer}>
           <Image source={item.image} style={styles.img} />
         </View>
+        <View style={styles.itemInfoContainer}></View>
       </View>
     </SafeAreaView>
   );
@@ -52,6 +53,12 @@ const ItemScreen = ({ route }) => {
 export default ItemScreen;
 
 const styles = StyleSheet.create({
+  itemInfoContainer: {
+    width: "100%",
+    height: "50%",
+    borderRadius: 40,
+    backgroundColor: "white",
+  },
   text: {
     fontSize: 30,
     fontWeight: "bold",
@@ -61,12 +68,15 @@ const styles = StyleSheet.create({
   },
   imgContainer: {
     width: "100%",
-    height: "65%",
-    borderWidth: 1,
+    height: "50%",
   },
   img: {
     width: "100%",
     height: "100%",
     resizeMode: "contain",
+  },
+  safeContainer: {
+    flex: 1,
+    backgroundColor: "#F1F3F2",
   },
 });
