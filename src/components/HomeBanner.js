@@ -11,7 +11,7 @@ const HomeBanner = () => {
           </View>
           <View style={styles.ctaContainer}>
             <View style={styles.ctaWrapper}>
-              <Text style={styles.ctaText}>Up to 50% Off </Text>
+              <Text style={styles.ctaText}>Up to 50% Off</Text>
             </View>
           </View>
         </View>
@@ -77,7 +77,6 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
   },
   ctaText: {
-    width: "100%",
     fontSize: 14,
     color: "#17BC58",
   },

@@ -5,22 +5,23 @@ import { useNavigation } from "@react-navigation/native";
 const ItemCard = ({ image, title, price, ratings }) => {
   const navigation = useNavigation();
   return (
-    <Pressable
-      style={styles.pressableContainer}
-      onPress={() => navigation.navigate("Item", { title: title })}
-    >
+    <Pressable onPress={() => navigation.navigate("Item", { title: title })}>
       <View style={styles.cardContainer}>
-        <Image source={image} style={styles.img} resizeMode="cover" />
-        <View style={styles.detailsContainer}>
-          <View style={styles.titleContainer}>
-            <Text style={styles.titleText}>{title}</Text>
-          </View>
-          <View>
-            <StarRating rating={ratings.average} />
-          </View>
+        <View style={styles.imgContainer}>
+          <Image source={image} style={styles.img} />
         </View>
-        <View>
-          <Text style={styles.priceText}>${price}</Text>
+        <View style={styles.detailsContainer}>
+          <View style={styles.infoContainer}>
+            <View style={styles.titleContainer}>
+              <Text style={styles.titleText}>{title}</Text>
+            </View>
+            <View>
+              <StarRating rating={ratings.average} />
+            </View>
+          </View>
+          <View style={styles.priceContainer}>
+            <Text style={styles.priceText}>${price}</Text>
+          </View>
         </View>
       </View>
     </Pressable>
@@ -34,27 +35,22 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   cardContainer: {
-    flex: 1,
+    width: 170,
+    height: 250,
     justifyContent: "center",
-    maxWidth: 200,
-    maxHeight: 300,
   },
   detailsContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    paddingVertical: 10,
+    height: "30%",
   },
   imgContainer: {
-    width: "100%",
-    height: 300,
-    alignItems: "center",
+    flex: 1,
     justifyContent: "center",
-    borderRadius: 20,
+    alignItems: "center",
   },
   img: {
-    flex: 1,
     width: "100%",
     height: "100%",
+    resizeMode: "contain",
     borderRadius: 20,
     backgroundColor: "#EFF1F0",
   },
@@ -62,7 +58,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   titleText: {
-    fontSize: 14,
+    fontSize: 13,
     color: "#6E6E6E",
     flexWrap: "wrap",
     width: "100%",
@@ -71,5 +67,13 @@ const styles = StyleSheet.create({
     fontSize: 17,
     fontWeight: "bold",
     color: "#000",
+  },
+  infoContainer: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  priceContainer: {
+    height: "35%",
   },
 });

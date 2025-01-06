@@ -48,7 +48,7 @@ const HomeScreen = ({ navigation }) => {
         />
         <HomeBanner />
         <View style={styles.categorySeperator}>
-          <Text style={styles.categoryText}>Categories</Text>
+          <Text style={styles.categoryTitle}>Categories</Text>
           <Pressable>
             <View style={styles.pressableContainer}>
               <Text style={styles.pressableText}>See all</Text>
@@ -62,13 +62,21 @@ const HomeScreen = ({ navigation }) => {
             showsHorizontalScrollIndicator={false}
             renderItem={({ item }) => (
               <View style={styles.categoryItem}>
-                <Text>{item}</Text>
+                <Text style={styles.categoryText}>{item}</Text>
               </View>
             )}
           />
         </View>
-        {/* <ItemCard {...item_data[0]} /> */}
-        {/* <ItemCard {...item_data[1]} /> */}
+        <View style={styles.itemsList}>
+          <FlatList
+            data={item_data}
+            showsVerticalScrollIndicator={false}
+            numColumns={2}
+            contentContainerStyle={{ gap: 20 }}
+            columnWrapperStyle={{ gap: 20 }}
+            renderItem={({ item }) => <ItemCard {...item} />}
+          />
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -86,6 +94,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   pressableText: {
+    fontSize: 16,
     color: colorScheme.accent,
     fontWeight: "500",
   },
@@ -104,13 +113,21 @@ const styles = StyleSheet.create({
   categoryItem: {
     justifyContent: "center",
     alignItems: "center",
-    padding: 10,
+    paddingHorizontal: 10,
     borderRadius: 10,
     marginRight: 10,
     borderWidth: 2,
   },
+  categoryTitle: {
+    fontSize: 18,
+    fontWeight: "500",
+  },
   categoryText: {
     fontSize: 16,
-    fontWeight: "500",
+  },
+  itemsList: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
