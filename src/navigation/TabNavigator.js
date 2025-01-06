@@ -2,8 +2,8 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import SearchScreen from "../screens/SearchScreen";
 import FavScreen from "../screens/FavScreen";
 import ProfileScreen from "../screens/ProfileScreen";
-import StackNavigator from "./StackNavigator";
 import Octicons from "@expo/vector-icons/Octicons";
+import HomeScreen from "../screens/HomeScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -12,7 +12,7 @@ const TabNavigator = () => {
     <Tab.Navigator screenOptions={screenOptions}>
       <Tab.Screen
         name="Home"
-        component={StackNavigator}
+        component={HomeScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
             <Octicons name="home" color={color} size={size} />
