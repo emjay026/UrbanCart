@@ -5,20 +5,17 @@ import {
   Image,
   Pressable,
   ScrollView,
-  FlatList,
 } from "react-native";
 import { useEffect, useState } from "react";
-import globalStyles from "../GlobalStyles";
 import BackButton from "../components/BackButton";
 import ScreenHeader from "../components/ScreenHeader";
 import IconButton from "../components/IconButton";
 import Octicon from "@expo/vector-icons/Octicons";
 import Feather from "@expo/vector-icons/Feather";
-import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import { useNavigation } from "@react-navigation/native";
 import StarRating from "../components/StarRating";
 import RowBlocks from "../components/RowBlocks";
 import Entypo from "@expo/vector-icons/Entypo";
+import CartButton from "../components/CartButton";
 
 const ItemScreen = ({ route }) => {
   const item = route.params.item;
@@ -56,16 +53,7 @@ const ItemScreen = ({ route }) => {
               onPress={() => console.log("Favorite")}
             />
             <View style={{ width: 10 }} />
-            <IconButton
-              icon={
-                <MaterialCommunityIcons
-                  name="cart-outline"
-                  size={28}
-                  color={"#6E6E6E"}
-                />
-              }
-              onPress={() => navigation.navigate("Cart")}
-            />
+            <CartButton />
           </View>
         }
       />
@@ -125,11 +113,14 @@ const ItemScreen = ({ route }) => {
               </Text>
               <Text style={styles.priceText}>${item.price}</Text>
             </View>
-            <View style={styles.buttonContainer}>
-              <Pressable style={styles.addToCartButton}>
+            <Pressable
+              style={styles.buttonContainer}
+              onPress={() => console.log("Add to Cart")}
+            >
+              <View style={styles.addToCartButton}>
                 <Text style={styles.addToCartText}>Add to Cart</Text>
-              </Pressable>
-            </View>
+              </View>
+            </Pressable>
           </View>
         </View>
       </View>

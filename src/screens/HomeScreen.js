@@ -16,24 +16,14 @@ import ScreenHeader from "../components/ScreenHeader";
 import Octicons from "@expo/vector-icons/Octicons";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import RowBlocks from "../components/RowBlocks";
+import CartButton from "../components/CartButton";
 
 const HomeScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <ScreenHeader
         leftChild={<Text style={globalStyles.titleText}>Discover</Text>}
-        rightChild={
-          <IconButton
-            icon={
-              <MaterialCommunityIcons
-                name="cart-outline"
-                size={28}
-                color={colorScheme.textBlack}
-              />
-            }
-            onPress={() => navigation.navigate("Cart")}
-          />
-        }
+        rightChild={<CartButton />}
       />
       <InputBar
         label={"Search"}
