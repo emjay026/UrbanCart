@@ -13,8 +13,15 @@ const ItemCard = ({ item }) => {
         <View style={styles.detailsContainer}>
           <View style={styles.infoContainer}>
             <View style={styles.titleContainer}>
-              <Text style={styles.titleText}>{item.title}</Text>
+              <Text
+                style={styles.titleText}
+                numberOfLines={3}
+                ellipsizeMode="tail"
+              >
+                {item.title}
+              </Text>
             </View>
+            <View style={{ width: 6 }} />
             <View>
               <StarRating rating={item.ratings.average} />
             </View>
@@ -60,7 +67,6 @@ const styles = StyleSheet.create({
   titleText: {
     fontSize: 13,
     color: "#6E6E6E",
-    flexWrap: "wrap",
     width: "100%",
   },
   priceText: {

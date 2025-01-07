@@ -1,13 +1,31 @@
-import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  Keyboard,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 import React from "react";
 
 const InputBar = ({ label, icon, onPress }) => {
   return (
     <View style={styles.container}>
       <View style={styles.inputContainer}>
-        <TextInput placeholder={label} style={styles.input} />
+        <TextInput
+          placeholder={label}
+          style={styles.input}
+          returnKeyType="done"
+          onSubmitEditing={Keyboard.dismiss}
+          onBlur={Keyboard.dismiss}
+        />
       </View>
-      <Pressable onPress={onPress}>
+      <Pressable
+        onPress={() => {
+          onPress();
+          Keyboard.dismiss();
+        }}
+      >
         <View style={styles.iconContainer}>{icon}</View>
       </Pressable>
     </View>

@@ -15,10 +15,10 @@ import InputBar from "../components/InputBar";
 import ScreenHeader from "../components/ScreenHeader";
 import Octicons from "@expo/vector-icons/Octicons";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import RowBlocks from "../components/RowBlocks";
 
 const HomeScreen = ({ navigation }) => {
   return (
-    // <SafeAreaView style={styles.safeContainer}>
     <View style={styles.container}>
       <ScreenHeader
         leftChild={<Text style={globalStyles.titleText}>Discover</Text>}
@@ -52,15 +52,11 @@ const HomeScreen = ({ navigation }) => {
         </Pressable>
       </View>
       <View style={styles.categoryList}>
-        <FlatList
-          data={Array.from(new Set(itemData.map((item) => item.category)))}
-          horizontal={true}
-          showsHorizontalScrollIndicator={false}
-          renderItem={({ item }) => (
-            <View style={styles.categoryItem}>
-              <Text style={styles.categoryText}>{item}</Text>
-            </View>
-          )}
+        <RowBlocks
+          data={[
+            "All",
+            ...Array.from(new Set(itemData.map((item) => item.category))),
+          ]}
         />
       </View>
       <View style={styles.itemsList}>
@@ -74,7 +70,6 @@ const HomeScreen = ({ navigation }) => {
         />
       </View>
     </View>
-    // </SafeAreaView>
   );
 };
 
