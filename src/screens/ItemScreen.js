@@ -1,11 +1,20 @@
-import { SafeAreaView, StyleSheet, Text, View, Image } from "react-native";
-import { useEffect, useState, useLayoutEffect } from "react";
+import {
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  Pressable,
+  useWindowDimensions,
+} from "react-native";
+import { useEffect, useState, useLayoutEffect, use } from "react";
 import globalStyles from "../GlobalStyles";
 import BackButton from "../components/BackButton";
 import ScreenHeader from "../components/ScreenHeader";
 import IconButton from "../components/IconButton";
 import Octicon from "@expo/vector-icons/Octicons";
 import Feather from "@expo/vector-icons/Feather";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { useNavigation } from "@react-navigation/native";
 
 const ItemScreen = ({ route }) => {
@@ -17,7 +26,8 @@ const ItemScreen = ({ route }) => {
   }, [isFavorite]);
 
   return (
-    <SafeAreaView style={styles.safeContainer}>
+    // <SafeAreaView style={styles.safeContainer}>
+    <View style={styles.container}>
       <ScreenHeader
         leftChild={<BackButton />}
         rightChild={
@@ -37,6 +47,17 @@ const ItemScreen = ({ route }) => {
               icon={<Feather name={"share"} size={25} color={"#6E6E6E"} />}
               onPress={() => console.log("Favorite")}
             />
+            <View style={{ width: 10 }} />
+            <IconButton
+              icon={
+                <MaterialCommunityIcons
+                  name="cart-outline"
+                  size={28}
+                  color={"#6E6E6E"}
+                />
+              }
+              onPress={() => navigation.navigate("Cart")}
+            />
           </View>
         }
       />
@@ -44,25 +65,104 @@ const ItemScreen = ({ route }) => {
         <View style={styles.imgContainer}>
           <Image source={item.image} style={styles.img} />
         </View>
-        <View style={styles.itemInfoContainer}></View>
+        <View style={styles.itemInfoContainer}>
+          <View style={styles.infoSection}>
+            <View style={styles.titleRow}></View>
+            <View style={styles.reviewsRow}></View>
+            <View style={styles.descriptContainer}></View>
+            <View style={styles.storageSelectionRow}></View>
+            <View style={styles.colorSelectionRow}></View>
+          </View>
+          <View style={styles.buttonSection}>
+            <View style={styles.priceContainer}>
+              <Text
+                style={[
+                  styles.prevPriceText,
+                  item.price < item.prevPrice
+                    ? { display: "flex" }
+                    : { display: "none" },
+                ]}
+              >
+                ${item.prevPrice}
+              </Text>
+              <Text style={styles.priceText}>${item.price}</Text>
+            </View>
+            <View style={styles.buttonContainer}>
+              <Pressable style={styles.addToCartButton}>
+                <Text style={styles.addToCartText}>Add to Cart</Text>
+              </Pressable>
+            </View>
+          </View>
+        </View>
       </View>
-    </SafeAreaView>
+    </View>
+    // </SafeAreaView>
   );
 };
 
 export default ItemScreen;
 
 const styles = StyleSheet.create({
+  bodyContainer: {
+    flex: 1,
+  },
   itemInfoContainer: {
-    width: "100%",
-    height: "50%",
-    borderRadius: 40,
+    flex: 1,
+    borderTopLeftRadius: 40,
+    borderTopRightRadius: 40,
     backgroundColor: "white",
   },
-  text: {
-    fontSize: 30,
-    fontWeight: "bold",
+  infoSection: {
+    flex: 1,
+    width: "100%",
+    padding: 15,
   },
+  buttonSection: {
+    width: "100%",
+    height: "33%",
+    flexDirection: "row",
+    borderTopWidth: 1,
+    borderTopColor: "#D6D6D6",
+    paddingHorizontal: 15,
+    paddingBottom: 15,
+  },
+  buttonContainer: {
+    flex: 1,
+    paddingTop: 15,
+    alignItems: "center",
+  },
+  addToCartButton: {
+    width: "90%",
+    height: "70%",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#17BC58",
+    borderRadius: 22,
+  },
+  addToCartText: {
+    fontSize: 20,
+    fontWeight: "600",
+    color: "white",
+  },
+  priceContainer: {
+    width: "40%",
+    justifyContent: "center",
+    alignItems: "flex-start",
+    paddingVertical: 10,
+    paddingLeft: 20,
+  },
+  prevPriceText: {
+    fontSize: 20,
+    fontWeight: "600",
+    color: "#B9B9B9",
+    textDecorationLine: "line-through",
+  },
+  priceText: {
+    fontSize: 26,
+    fontWeight: "600",
+    color: "#3C3C3C",
+  },
+
   rightContainer: {
     flexDirection: "row",
   },
@@ -77,6 +177,11 @@ const styles = StyleSheet.create({
   },
   safeContainer: {
     flex: 1,
+    backgroundColor: "#F1F3F2",
+  },
+  container: {
+    flex: 1,
+    //height: "100%",
     backgroundColor: "#F1F3F2",
   },
 });

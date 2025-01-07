@@ -18,69 +18,73 @@ import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
 const HomeScreen = ({ navigation }) => {
   return (
-    <SafeAreaView style={globalStyles.safeContainer}>
-      <View style={styles.container}>
-        <ScreenHeader
-          leftChild={<Text style={globalStyles.titleText}>Discover</Text>}
-          rightChild={
-            <IconButton
-              icon={
-                <MaterialCommunityIcons
-                  name="cart-outline"
-                  size={28}
-                  color={colorScheme.textBlack}
-                />
-              }
-              onPress={() => navigation.navigate("Cart")}
-            />
-          }
-        />
-        <InputBar
-          label={"Search"}
-          icon={<Octicons name="search" color={"#6E6E6E"} size={25} />}
-          onPress={() => {
-            console.log("Search");
-          }}
-        />
-        <HomeBanner />
-        <View style={styles.categorySeperator}>
-          <Text style={styles.categoryTitle}>Categories</Text>
-          <Pressable>
-            <View style={styles.pressableContainer}>
-              <Text style={styles.pressableText}>See all</Text>
-            </View>
-          </Pressable>
-        </View>
-        <View style={styles.categoryList}>
-          <FlatList
-            data={Array.from(new Set(itemData.map((item) => item.category)))}
-            horizontal={true}
-            showsHorizontalScrollIndicator={false}
-            renderItem={({ item }) => (
-              <View style={styles.categoryItem}>
-                <Text style={styles.categoryText}>{item}</Text>
-              </View>
-            )}
+    // <SafeAreaView style={styles.safeContainer}>
+    <View style={styles.container}>
+      <ScreenHeader
+        leftChild={<Text style={globalStyles.titleText}>Discover</Text>}
+        rightChild={
+          <IconButton
+            icon={
+              <MaterialCommunityIcons
+                name="cart-outline"
+                size={28}
+                color={colorScheme.textBlack}
+              />
+            }
+            onPress={() => navigation.navigate("Cart")}
           />
-        </View>
-        <View style={styles.itemsList}>
-          <FlatList
-            data={itemData}
-            showsVerticalScrollIndicator={false}
-            numColumns={2}
-            contentContainerStyle={{ gap: 20 }}
-            columnWrapperStyle={{ gap: 20 }}
-            renderItem={({ item }) => <ItemCard item={item} />}
-          />
-        </View>
+        }
+      />
+      <InputBar
+        label={"Search"}
+        icon={<Octicons name="search" color={"#6E6E6E"} size={25} />}
+        onPress={() => {
+          console.log("Search");
+        }}
+      />
+      <HomeBanner />
+      <View style={styles.categorySeperator}>
+        <Text style={styles.categoryTitle}>Categories</Text>
+        <Pressable>
+          <View style={styles.pressableContainer}>
+            <Text style={styles.pressableText}>See all</Text>
+          </View>
+        </Pressable>
       </View>
-    </SafeAreaView>
+      <View style={styles.categoryList}>
+        <FlatList
+          data={Array.from(new Set(itemData.map((item) => item.category)))}
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+          renderItem={({ item }) => (
+            <View style={styles.categoryItem}>
+              <Text style={styles.categoryText}>{item}</Text>
+            </View>
+          )}
+        />
+      </View>
+      <View style={styles.itemsList}>
+        <FlatList
+          data={itemData}
+          showsVerticalScrollIndicator={false}
+          numColumns={2}
+          contentContainerStyle={{ gap: 20 }}
+          columnWrapperStyle={{ gap: 20 }}
+          renderItem={({ item }) => <ItemCard item={item} />}
+        />
+      </View>
+    </View>
+    // </SafeAreaView>
   );
 };
 
 export default HomeScreen;
 
 const styles = StyleSheet.create({
+  safeContainer: {
+    flex: 1,
+    backgroundColor: "#FFFFFF",
+  },
   container: {
     flex: 1,
     backgroundColor: "#FFFFFF",

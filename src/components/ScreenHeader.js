@@ -1,9 +1,12 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StatusBar, StyleSheet, Text, View } from "react-native";
 import React from "react";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const ScreenHeader = ({ leftChild, centerChild, rightChild }) => {
+  const insets = useSafeAreaInsets();
+
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { marginTop: insets.top }]}>
       <View>{leftChild}</View>
       <View>{centerChild}</View>
       <View>{rightChild}</View>
