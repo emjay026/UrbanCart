@@ -1,7 +1,5 @@
 import {
-  Button,
   FlatList,
-  Image,
   Pressable,
   SafeAreaView,
   StyleSheet,
@@ -9,16 +7,14 @@ import {
   View,
 } from "react-native";
 import globalStyles, { colorScheme } from "../GlobalStyles";
-import BackButton from "../components/BackButton";
 import IconButton from "../components/IconButton";
-import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import { item_data } from "../data/DummyData";
-import StarRating from "../components/StarRating";
+import HomeBanner from "../components/HomeBanner";
+import itemData from "../data/DummyData";
 import ItemCard from "../components/ItemCard";
 import InputBar from "../components/InputBar";
 import ScreenHeader from "../components/ScreenHeader";
 import Octicons from "@expo/vector-icons/Octicons";
-import HomeBanner from "../components/HomeBanner";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
 const HomeScreen = ({ navigation }) => {
   return (
@@ -57,7 +53,7 @@ const HomeScreen = ({ navigation }) => {
         </View>
         <View style={styles.categoryList}>
           <FlatList
-            data={Array.from(new Set(item_data.map((item) => item.category)))}
+            data={Array.from(new Set(itemData.map((item) => item.category)))}
             horizontal={true}
             showsHorizontalScrollIndicator={false}
             renderItem={({ item }) => (
@@ -69,7 +65,7 @@ const HomeScreen = ({ navigation }) => {
         </View>
         <View style={styles.itemsList}>
           <FlatList
-            data={item_data}
+            data={itemData}
             showsVerticalScrollIndicator={false}
             numColumns={2}
             contentContainerStyle={{ gap: 20 }}

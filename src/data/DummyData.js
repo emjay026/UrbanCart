@@ -1,4 +1,4 @@
-export const item_data = [
+const itemData = [
   {
     id: 1,
     title: "Apple iPhone 14 Pro",
@@ -28,7 +28,7 @@ export const item_data = [
     },
     image: require("../../assets/dummyDataImages/1-iphone14Pro.png"),
     stock: 500,
-    onSale: false,
+    prevPrice: 955.4,
   },
   {
     id: 2,
@@ -55,7 +55,7 @@ export const item_data = [
     },
     image: require("../../assets/dummyDataImages/2-SamsungGalaxyS23Ultra.png"),
     stock: 350,
-    onSale: false,
+    prevPrice: 1227.26,
   },
   {
     id: 3,
@@ -86,7 +86,7 @@ export const item_data = [
     },
     image: require("../../assets/dummyDataImages/3-MacBookPro16-inch(M2Pro).png"),
     stock: 200,
-    onSale: false,
+    prevPrice: 2560.46,
   },
   {
     id: 4,
@@ -117,7 +117,7 @@ export const item_data = [
     },
     image: require("../../assets/dummyDataImages/4-SonyWH-1000XM5WirelessHeadphones.png"),
     stock: 600,
-    onSale: true,
+    prevPrice: 403.37,
   },
   {
     id: 5,
@@ -148,7 +148,7 @@ export const item_data = [
     },
     image: require("../../assets/dummyDataImages/5-GooglePixel7.png"),
     stock: 400,
-    onSale: false,
+    prevPrice: 568.85,
   },
   {
     id: 6,
@@ -179,7 +179,7 @@ export const item_data = [
     },
     image: require("../../assets/dummyDataImages/6-MicrosoftSurfacePro9.png"),
     stock: 150,
-    onSale: true,
+    prevPrice: 1030.28,
   },
   {
     id: 7,
@@ -210,7 +210,7 @@ export const item_data = [
     },
     image: require("../../assets/dummyDataImages/7-DJIMini3ProDrone.png"),
     stock: 120,
-    onSale: true,
+    prevPrice: 809.29,
   },
   {
     id: 8,
@@ -241,7 +241,7 @@ export const item_data = [
     },
     image: require("../../assets/dummyDataImages/8-PlayStation5.png"),
     stock: 300,
-    onSale: false,
+    prevPrice: 564.13,
   },
   {
     id: 9,
@@ -272,7 +272,7 @@ export const item_data = [
     },
     image: require("../../assets/dummyDataImages/9-LogitechMXMaster3S.png"),
     stock: 500,
-    onSale: false,
+    prevPrice: 196.63,
   },
   {
     id: 10,
@@ -303,7 +303,7 @@ export const item_data = [
     },
     image: require("../../assets/dummyDataImages/10-BoseQuietComfortEarbudsII.png"),
     stock: 300,
-    onSale: true,
+    prevPrice: 235.51,
   },
   {
     id: 11,
@@ -334,7 +334,7 @@ export const item_data = [
     },
     image: require("../../assets/dummyDataImages/11-SamsungGalaxyTabS8Ultra.png"),
     stock: 200,
-    onSale: false,
+    prevPrice: 1049.31,
   },
   {
     id: 12,
@@ -365,10 +365,8 @@ export const item_data = [
     },
     image: require("../../assets/dummyDataImages/12-CanonEOSR5.png"),
     stock: 150,
-    onSale: true,
+    prevPrice: 3816.1,
   },
-  // 28 more entries with similar variety
-
   {
     id: 13,
     title: "Apple AirPods Pro (2nd Gen)",
@@ -398,7 +396,7 @@ export const item_data = [
     },
     image: require("../../assets/dummyDataImages/13-AppleAirPodsPro(2ndGen).png"),
     stock: 500,
-    onSale: true,
+    prevPrice: 332.79,
   },
   {
     id: 14,
@@ -429,7 +427,7 @@ export const item_data = [
     },
     image: require("../../assets/dummyDataImages/14-NvidiaGeForceRTX3080.png"),
     stock: 100,
-    onSale: false,
+    prevPrice: 793.07,
   },
   {
     id: 15,
@@ -460,7 +458,7 @@ export const item_data = [
     },
     image: require("../../assets/dummyDataImages/15-AppleMacBookProM2(14-inch).png"),
     stock: 250,
-    onSale: false,
+    prevPrice: 1943.1,
   },
   {
     id: 16,
@@ -491,7 +489,7 @@ export const item_data = [
     },
     image: require("../../assets/dummyDataImages/16-AmazonEchoDot(4thGen).png"),
     stock: 1200,
-    onSale: true,
+    prevPrice: 59.9,
   },
   {
     id: 17,
@@ -522,7 +520,7 @@ export const item_data = [
     },
     image: require("../../assets/dummyDataImages/17-GoProHERO10Black-2.png"),
     stock: 300,
-    onSale: false,
+    prevPrice: 305.41,
   },
   {
     id: 18,
@@ -549,7 +547,7 @@ export const item_data = [
     },
     image: require("../../assets/dummyDataImages/18-OculusQuest2.png"),
     stock: 800,
-    onSale: true,
+    prevPrice: 280.35,
   },
   {
     id: 19,
@@ -580,7 +578,7 @@ export const item_data = [
     },
     image: require("../../assets/dummyDataImages/19-SamsungGalaxyWatch5.png"),
     stock: 600,
-    onSale: false,
+    prevPrice: 270.8,
   },
   {
     id: 20,
@@ -611,7 +609,7 @@ export const item_data = [
     },
     image: require("../../assets/dummyDataImages/20-FitbitCharge5.png"),
     stock: 1200,
-    onSale: true,
+    prevPrice: 123.69,
   },
 
   {
@@ -643,7 +641,7 @@ export const item_data = [
     },
     image: require("../../assets/dummyDataImages/21-LenovoThinkPadX1CarbonGen9.png"),
     stock: 200,
-    onSale: false,
+    prevPrice: 1698.15,
   },
   {
     id: 22,
@@ -674,7 +672,7 @@ export const item_data = [
     },
     image: require("../../assets/dummyDataImages/22-SonyWH-1000XM5.png"),
     stock: 300,
-    onSale: false,
+    prevPrice: 309.02,
   },
   {
     id: 23,
@@ -705,7 +703,7 @@ export const item_data = [
     },
     image: require("../../assets/dummyDataImages/23-MicrosoftSurfacePro8.png"),
     stock: 400,
-    onSale: false,
+    prevPrice: 1046.75,
   },
   {
     id: 24,
@@ -736,7 +734,7 @@ export const item_data = [
     },
     image: require("../../assets/dummyDataImages/24-SamsungGalaxyZFold4.png"),
     stock: 150,
-    onSale: true,
+    prevPrice: 1780.82,
   },
   {
     id: 25,
@@ -767,7 +765,7 @@ export const item_data = [
     },
     image: require("../../assets/dummyDataImages/25-DellXPS139310.png"),
     stock: 300,
-    onSale: false,
+    prevPrice: 1355.44,
   },
   {
     id: 26,
@@ -798,7 +796,7 @@ export const item_data = [
     },
     image: require("../../assets/dummyDataImages/26-HPSpectrex36014.png"),
     stock: 200,
-    onSale: true,
+    prevPrice: 1505.14,
   },
   {
     id: 27,
@@ -829,7 +827,7 @@ export const item_data = [
     },
     image: require("../../assets/dummyDataImages/27-BoseQuietComfort45.png"),
     stock: 500,
-    onSale: false,
+    prevPrice: 242.84,
   },
   {
     id: 28,
@@ -860,7 +858,7 @@ export const item_data = [
     },
     image: require("../../assets/dummyDataImages/28-AsusROGStrixG15.png"),
     stock: 100,
-    onSale: true,
+    prevPrice: 1587.85,
   },
   {
     id: 29,
@@ -891,7 +889,7 @@ export const item_data = [
     },
     image: require("../../assets/dummyDataImages/29-AppleiPadAir(5thGen).png"),
     stock: 600,
-    onSale: true,
+    prevPrice: 694.53,
   },
 
   {
@@ -924,7 +922,7 @@ export const item_data = [
     },
     image: require("../../assets/dummyDataImages/30-SamsungGalaxyTabS8.png"),
     stock: 450,
-    onSale: true,
+    prevPrice: 684.67,
   },
   {
     id: 31,
@@ -955,7 +953,7 @@ export const item_data = [
     },
     image: require("../../assets/dummyDataImages/31-OculusQuest2.png"),
     stock: 300,
-    onSale: false,
+    prevPrice: 209.37,
   },
   {
     id: 32,
@@ -987,7 +985,7 @@ export const item_data = [
     },
     image: require("../../assets/dummyDataImages/32-AppleWatchSeries7.png"),
     stock: 500,
-    onSale: false,
+    prevPrice: 392.12,
   },
   {
     id: 33,
@@ -1018,7 +1016,7 @@ export const item_data = [
     },
     image: require("../../assets/dummyDataImages/33-GoProHERO10Black.png"),
     stock: 200,
-    onSale: false,
+    prevPrice: 443.7,
   },
   {
     id: 34,
@@ -1049,7 +1047,7 @@ export const item_data = [
     },
     image: require("../../assets/dummyDataImages/34-AmazonEchoShow10.png"),
     stock: 450,
-    onSale: true,
+    prevPrice: 328.09,
   },
   {
     id: 35,
@@ -1080,7 +1078,7 @@ export const item_data = [
     },
     image: require("../../assets/dummyDataImages/35-JBLCharge5.png"),
     stock: 500,
-    onSale: true,
+    prevPrice: 199.91,
   },
   {
     id: 36,
@@ -1111,7 +1109,7 @@ export const item_data = [
     },
     image: require("../../assets/dummyDataImages/36-SamsungGalaxyS21Ultra.png"),
     stock: 100,
-    onSale: false,
+    prevPrice: 1245.18,
   },
   {
     id: 37,
@@ -1142,7 +1140,7 @@ export const item_data = [
     },
     image: require("../../assets/dummyDataImages/37-FitbitCharge5.png"),
     stock: 800,
-    onSale: false,
+    prevPrice: 198.27,
   },
   {
     id: 38,
@@ -1173,7 +1171,7 @@ export const item_data = [
     },
     image: require("../../assets/dummyDataImages/38-SonyA7IIIMirrorlessCamera.png"),
     stock: 150,
-    onSale: false,
+    prevPrice: 2060.38,
   },
   {
     id: 39,
@@ -1204,7 +1202,7 @@ export const item_data = [
     },
     image: require("../../assets/dummyDataImages/39-AppleMacBookAir(M1Chip).png"),
     stock: 600,
-    onSale: true,
+    prevPrice: 961.58,
   },
   {
     id: 40,
@@ -1235,6 +1233,8 @@ export const item_data = [
     },
     image: require("../../assets/dummyDataImages/40-BoseSoundLinkRevolve+II.png"),
     stock: 350,
-    onSale: false,
+    prevPrice: 272.28,
   },
 ];
+
+export default itemData;
