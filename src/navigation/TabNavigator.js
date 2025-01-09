@@ -1,9 +1,9 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import SearchScreen from "../screens/SearchScreen";
-import FavScreen from "../screens/FavScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import Octicons from "@expo/vector-icons/Octicons";
 import HomeScreen from "../screens/HomeScreen";
+import WishlistScreen from "../screens/WishlistScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -29,8 +29,8 @@ const TabNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="Favorites"
-        component={FavScreen}
+        name="Wishlist"
+        component={WishlistScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
             <Octicons name="heart" color={color} size={size} />
