@@ -1,19 +1,31 @@
-import { StyleSheet, Text, View, Image, Pressable } from "react-native";
-import React from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  Pressable,
+  Modal,
+  Button,
+} from "react-native";
+import { useState } from "react";
 import itemData from "../data/DummyData";
 import { useNavigation } from "@react-navigation/native";
 import AntDesign from "@expo/vector-icons/AntDesign";
+import ItemModal from "../modal/ItemModal";
 
 const CartItem = () => {
   const index = 4;
-  const navigation = useNavigation();
+  const [showModal, setShowModal] = useState(false);
   const showVariation = (data) => {
     return data === undefined ? { display: "none" } : { display: "flex" };
   };
   return (
-    <Pressable
-      onPress={() => navigation.navigate("Item", { item: itemData[index] })}
-    >
+    <Pressable onPress={() => setShowModal(true)}>
+      <ItemModal
+        item={itemData[index]}
+        showModal={showModal}
+        setShowModal={setShowModal}
+      />
       <View style={styles.container}>
         <View style={styles.imageContainer}>
           <Image source={itemData[index].image} style={styles.img} />
@@ -28,7 +40,7 @@ const CartItem = () => {
               {itemData[index].title}
             </Text>
             <View style={styles.closeButton}>
-              <AntDesign name="close" size={20} />
+              <AntDesign name="close" size={20} color={"#6E6E6E"} />
             </View>
           </View>
           <View style={styles.attributeRow}>
