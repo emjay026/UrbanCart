@@ -1,9 +1,19 @@
+import { Button } from "react-native";
 import { StyleSheet, Text, View } from "react-native";
+import { useDispatch } from "react-redux";
+import { signOut } from "../services/auth/AuthService";
 
-const ProfileScreen = () => {
+const ProfileScreen = ({ navigation }) => {
+  const dispatch = useDispatch();
   return (
     <View style={styles.container}>
       <Text>ProfileScreen</Text>
+      <Button
+        title="Logout"
+        onPress={() => {
+          dispatch(signOut());
+        }}
+      />
     </View>
   );
 };

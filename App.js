@@ -1,10 +1,12 @@
-import { NavigationContainer } from "@react-navigation/native";
-import MainStack from "./src/navigation/MainStack";
+import { useEffect } from "react";
+import Main from "./src/navigation/Main";
+import { store } from "./src/redux/store";
+import { Provider } from "react-redux";
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <MainStack />
-    </NavigationContainer>
+    <Provider store={store}>
+      <Main />
+    </Provider>
   );
 }

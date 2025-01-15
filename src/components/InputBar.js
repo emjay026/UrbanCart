@@ -1,33 +1,47 @@
-import {
-  Keyboard,
-  Pressable,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
+import { Keyboard, Pressable, StyleSheet, TextInput, View } from "react-native";
 import React from "react";
 
-const InputBar = ({ label, icon, onPress }) => {
+const InputBar = ({
+  label,
+  icon,
+  keyboardType = "default",
+  autoComplete = "off",
+  textContentType = "none",
+  isPassword = false,
+  inputValue,
+  setInputValue,
+  onPress,
+}) => {
   return (
     <View style={styles.container}>
       <View style={styles.inputContainer}>
         <TextInput
           placeholder={label}
           style={styles.input}
-          returnKeyType="done"
-          onSubmitEditing={Keyboard.dismiss}
-          onBlur={Keyboard.dismiss}
+          keyboardType={keyboardType}
+          autoCapitalize="none"
+          autoCorrect={false}
+          autoComplete={autoComplete}
+          textContentType={textContentType}
+          returnKeyType={"done"}
+          secureTextEntry={isPassword}
+          value={inputValue}
+          onChangeText={(value) => setInputValue(value)}
         />
+
+        {onPress ? (
+          <Pressable
+            onPress={() => {
+              onPress();
+              Keyboard.dismiss();
+            }}
+          >
+            <View style={styles.iconContainer}>{icon}</View>
+          </Pressable>
+        ) : (
+          <View style={styles.iconContainer}>{icon}</View>
+        )}
       </View>
-      <Pressable
-        onPress={() => {
-          onPress();
-          Keyboard.dismiss();
-        }}
-      >
-        <View style={styles.iconContainer}>{icon}</View>
-      </Pressable>
     </View>
   );
 };
@@ -41,28 +55,27 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    paddingHorizontal: 20,
     marginBottom: 20,
   },
   inputContainer: {
-    flex: 1,
+    width: "90%",
     height: "100%",
-    borderTopLeftRadius: 15,
-    borderBottomLeftRadius: 15,
-    paddingHorizontal: 20,
+    flexDirection: "row",
+    borderRadius: 15,
     backgroundColor: "#EFF1F1",
+    borderWidth: 1,
+    borderColor: "#EFF1F1",
   },
   iconContainer: {
     width: 50,
     height: "100%",
     justifyContent: "center",
     alignItems: "center",
-    borderTopRightRadius: 15,
-    borderBottomRightRadius: 15,
-    backgroundColor: "#EFF1F1",
   },
   input: {
+    flex: 1,
     height: "100%",
-    fontSize: 18,
+    fontSize: 16,
+    paddingHorizontal: 20,
   },
 });
