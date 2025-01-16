@@ -2,13 +2,18 @@ import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import StarRating from "./StarRating";
 import { useNavigation } from "@react-navigation/native";
 
-const ItemCard = ({ item }) => {
+const ItemGridCard = ({ item }) => {
   const navigation = useNavigation();
   return (
     <Pressable onPress={() => navigation.navigate("Item", { item })}>
       <View style={styles.cardContainer}>
         <View style={styles.imgContainer}>
-          <Image source={item.image} style={styles.img} />
+          <Image
+            source={{ uri: item.image }}
+            loadingIndicatorSource={require("../../assets/default_image.png")}
+            defaultSource={require("../../assets/default_image.png")}
+            style={styles.img}
+          />
         </View>
         <View style={styles.detailsContainer}>
           <View style={styles.infoContainer}>
@@ -35,7 +40,7 @@ const ItemCard = ({ item }) => {
   );
 };
 
-export default ItemCard;
+export default ItemGridCard;
 
 const styles = StyleSheet.create({
   pressableContainer: {

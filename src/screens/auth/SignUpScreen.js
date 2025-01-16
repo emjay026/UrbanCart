@@ -9,14 +9,15 @@ import {
   Text,
   Alert,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Octicons from "@expo/vector-icons/Octicons";
 import InputBar from "../../components/InputBar";
 import SubmitButton from "../../components/SubmitButton";
 
 import { useDispatch, useSelector } from "react-redux";
 import { signUp } from "../../services/auth/AuthService";
-import { setError } from "../../redux/features/auth/authSlice";
+import { setAuthError } from "../../redux/features/auth/authSlice";
+import Loading from "../../components/Loading";
 
 const SignUpScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -28,7 +29,7 @@ const SignUpScreen = ({ navigation }) => {
   useEffect(() => {
     if (error) {
       Alert.alert("Error", error);
-      dispatch(setError(null));
+      dispatch(setAuthError(null));
     }
   }, [error]);
 
@@ -90,11 +91,7 @@ const SignUpScreen = ({ navigation }) => {
           onPress={handleSignUp}
         />
       </ScrollView>
-      {loading && (
-        <View style={styles.loadingOverlay}>
-          <ActivityIndicator size="large" color="#17BC58" />
-        </View>
-      )}
+      <Loading loading={loading} />
     </KeyboardAvoidingView>
   );
 };
@@ -164,15 +161,5 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 5,
     paddingHorizontal: 10,
-  },
-  loadingOverlay: {
-    position: "absolute",
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "rgba(255, 255, 255, 0.7)",
   },
 });

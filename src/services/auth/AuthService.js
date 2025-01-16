@@ -2,8 +2,8 @@ import { supabase } from "../../lib/supabase";
 import {
   setUser,
   clearUser,
-  setLoading,
-  setError,
+  setAuthLoading,
+  setAuthError,
 } from "../../redux/features/auth/authSlice";
 import {
   saveSession,
@@ -14,21 +14,21 @@ import {
 export const signUp = (email, password) => async (dispatch) => {
   try {
     console.log("signUp");
-    dispatch(setLoading(true));
+    dispatch(setAuthLoading(true));
     const { data, error } = await supabase.auth.signUp({ email, password });
     if (error) throw error;
     dispatch(setUser({ user: data.user, session: data.session }));
   } catch (error) {
-    dispatch(setError(error.message));
+    dispatch(setAuthError(error.message));
   } finally {
-    dispatch(setLoading(false));
+    dispatch(setAuthLoading(false));
   }
 };
 
 export const signIn = (email, password) => async (dispatch) => {
   try {
     console.log("signIn");
-    dispatch(setLoading(true));
+    dispatch(setAuthLoading(true));
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
@@ -37,31 +37,31 @@ export const signIn = (email, password) => async (dispatch) => {
     dispatch(setUser({ user: data.user, session: data.session }));
     await saveSession(data.session); // Save session to AsyncStorage
   } catch (error) {
-    dispatch(setError(error.message));
+    dispatch(setAuthError(error.message));
   } finally {
-    dispatch(setLoading(false));
+    dispatch(setAuthLoading(false));
   }
 };
 
 export const signOut = () => async (dispatch) => {
   try {
     console.log("signOut");
-    dispatch(setLoading(true));
+    dispatch(setAuthLoading(true));
     const { error } = await supabase.auth.signOut();
     if (error) throw error;
     dispatch(clearUser());
     await clearSession();
   } catch (error) {
-    dispatch(setError(error.message));
+    dispatch(setAuthError(error.message));
   } finally {
-    dispatch(setLoading(false));
+    dispatch(setAuthLoading(false));
   }
 };
 
 export const restoreSession = () => async (dispatch) => {
   console.log("restoreSession");
   try {
-    dispatch(setLoading(true));
+    dispatch(setAuthLoading(true));
     const savedSession = await loadSession();
 
     if (savedSession) {
@@ -76,8 +76,8 @@ export const restoreSession = () => async (dispatch) => {
       }
     }
   } catch (error) {
-    dispatch(setError(error.message));
+    dispatch(setAuthError(error.message));
   } finally {
-    dispatch(setLoading(false));
+    dispatch(setAuthLoading(false));
   }
 };

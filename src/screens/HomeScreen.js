@@ -1,24 +1,26 @@
-import {
-  FlatList,
-  Pressable,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
 import globalStyles, { colorScheme } from "../GlobalStyles";
-import IconButton from "../components/IconButton";
 import HomeBanner from "../components/HomeBanner";
-import itemData from "../data/DummyData";
-import ItemCard from "../components/ItemCard";
+import ItemGridCard from "../components/ItemGridCard";
 import InputBar from "../components/InputBar";
 import ScreenHeader from "../components/ScreenHeader";
 import Octicons from "@expo/vector-icons/Octicons";
-import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import RowBlocks from "../components/RowBlocks";
 import CartButton from "../components/CartButton";
+import { useEffect } from "react";
+import { fetchItems } from "../services/database/ItemFetching";
+import { useDispatch, useSelector } from "react-redux";
+import Loading from "../components/Loading";
 
-const HomeScreen = ({ navigation }) => {
+const HomeScreen = () => {
+  const dispatch = useDispatch();
+  const { items, loading, error } = useSelector((state) => state.items);
+
+  useEffect(() => {
+    dispatch(fetchItems());
+    console.log(error);
+  }, [dispatch]);
+
   return (
     <View style={styles.container}>
       <ScreenHeader
@@ -45,20 +47,21 @@ const HomeScreen = ({ navigation }) => {
         <RowBlocks
           data={[
             "All",
-            ...Array.from(new Set(itemData.map((item) => item.category))),
+            ...Array.from(new Set(items.map((item) => item.category))),
           ]}
         />
       </View>
       <View style={styles.itemsList}>
         <FlatList
-          data={itemData}
+          data={items}
           showsVerticalScrollIndicator={false}
           numColumns={2}
           contentContainerStyle={{ gap: 20 }}
           columnWrapperStyle={{ gap: 20 }}
-          renderItem={({ item }) => <ItemCard item={item} />}
+          renderItem={({ item }) => <ItemGridCard item={item} />}
         />
       </View>
+      <Loading loading={loading} />
     </View>
   );
 };

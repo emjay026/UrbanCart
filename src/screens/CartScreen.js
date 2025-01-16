@@ -4,7 +4,7 @@ import BackButton from "../components/BackButton";
 import ScreenHeader from "../components/ScreenHeader";
 import IconButton from "../components/IconButton";
 import Entypo from "@expo/vector-icons/Entypo";
-import CartItem from "../components/CartItem";
+import ItemListCard from "../components/ItemListCard";
 
 const CartScreen = () => {
   return (
@@ -26,7 +26,7 @@ const CartScreen = () => {
         }
       />
       <View style={styles.bodyContainer}>
-        <CartItem />
+        <ItemListCard />
       </View>
       <View style={styles.buttonSection}>
         <Pressable

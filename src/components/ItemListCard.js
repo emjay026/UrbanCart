@@ -13,7 +13,7 @@ import { useNavigation } from "@react-navigation/native";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import ItemModal from "../modal/ItemModal";
 
-const CartItem = () => {
+const ItemListCard = () => {
   const index = 3;
   const [showModal, setShowModal] = useState(false);
   const [itemQuantity, setitemQuantity] = useState(1);
@@ -85,7 +85,7 @@ const CartItem = () => {
   );
 };
 
-export default CartItem;
+export default ItemListCard;
 
 const styles = StyleSheet.create({
   quantityRow: {

@@ -17,7 +17,8 @@ import SubmitButton from "../../components/SubmitButton";
 
 import { signIn } from "../../services/auth/AuthService";
 import { useDispatch, useSelector } from "react-redux";
-import { setError } from "../../redux/features/auth/authSlice";
+import { setAuthError } from "../../redux/features/auth/authSlice";
+import Loading from "../../components/Loading";
 
 const SignInScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -29,7 +30,7 @@ const SignInScreen = ({ navigation }) => {
   useEffect(() => {
     if (error) {
       Alert.alert("Error", error);
-      dispatch(setError(null));
+      dispatch(setAuthError(null));
     }
   }, [error]);
 
@@ -88,11 +89,7 @@ const SignInScreen = ({ navigation }) => {
           }}
         />
       </ScrollView>
-      {loading && (
-        <View style={styles.loadingOverlay}>
-          <ActivityIndicator size="large" color="#17BC58" />
-        </View>
-      )}
+      <Loading loading={loading} />
     </KeyboardAvoidingView>
   );
 };
@@ -161,15 +158,5 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 5,
     paddingHorizontal: 10,
-  },
-  loadingOverlay: {
-    position: "absolute",
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "rgba(255, 255, 255, 0.7)",
   },
 });
