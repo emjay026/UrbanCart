@@ -50,11 +50,12 @@ const styles = StyleSheet.create({
   },
   cardContainer: {
     width: 170,
-    height: 250,
+    height: 220,
     justifyContent: "center",
+    //borderWidth: 1,
   },
   detailsContainer: {
-    height: "30%",
+    height: "25%",
   },
   imgContainer: {
     flex: 1,

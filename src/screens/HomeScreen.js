@@ -7,18 +7,32 @@ import ScreenHeader from "../components/ScreenHeader";
 import Octicons from "@expo/vector-icons/Octicons";
 import RowBlocks from "../components/RowBlocks";
 import CartButton from "../components/CartButton";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { fetchItems } from "../services/database/items/ItemFetching";
 import { useDispatch, useSelector } from "react-redux";
 import Loading from "../components/Loading";
+import CategoriesModal from "../modal/CategoriesModal";
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
   const { items, loading, error } = useSelector((state) => state.items);
+  const [filteredItems, setFilteredItems] = useState(items);
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     dispatch(fetchItems());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (selectedCategory === "All") {
+      setFilteredItems(items);
+    } else {
+      setFilteredItems(
+        items.filter((item) => item.category === selectedCategory)
+      );
+    }
+  }, [selectedCategory, items]);
 
   return (
     <View style={styles.container}>
@@ -29,7 +43,7 @@ const HomeScreen = () => {
       <HomeBanner />
       <View style={styles.categorySeperator}>
         <Text style={styles.categoryTitle}>Categories</Text>
-        <Pressable>
+        <Pressable onPress={() => setModalVisible(true)}>
           <View style={styles.pressableContainer}>
             <Text style={styles.pressableText}>See all</Text>
           </View>
@@ -41,11 +55,13 @@ const HomeScreen = () => {
             "All",
             ...Array.from(new Set(items.map((item) => item.category))),
           ]}
+          onSelect={setSelectedCategory}
+          selectedCategory={selectedCategory}
         />
       </View>
       <View style={styles.itemsList}>
         <FlatList
-          data={items}
+          data={filteredItems}
           showsVerticalScrollIndicator={false}
           numColumns={2}
           contentContainerStyle={{ gap: 20 }}
@@ -53,6 +69,16 @@ const HomeScreen = () => {
           renderItem={({ item }) => <ItemGridCard item={item} />}
         />
       </View>
+      <CategoriesModal
+        visible={modalVisible}
+        onClose={() => setModalVisible(false)}
+        categories={[
+          "All",
+          ...Array.from(new Set(items.map((item) => item.category))),
+        ]}
+        onSelectCategory={setSelectedCategory}
+        selectedCategory={selectedCategory}
+      />
       <Loading loading={loading} />
     </View>
   );

@@ -1,8 +1,11 @@
 import { StyleSheet, Text, View, FlatList, Pressable } from "react-native";
 import { useState } from "react";
 
-const RowBlocks = ({ data, title }) => {
-  const [selected, setSelected] = useState(data[0]);
+const RowBlocks = ({ data, title, onSelect, selectedCategory }) => {
+  const handleSelect = (item) => {
+    onSelect?.(item);
+  };
+
   return (
     <View style={{ display: data.length === 0 ? "none" : "flex" }}>
       <Text
@@ -23,17 +26,21 @@ const RowBlocks = ({ data, title }) => {
               style={[
                 styles.categoryItem,
                 {
-                  borderColor: selected === item ? "#17BC58" : "#3C3C3C",
-                  backgroundColor: selected === item ? "#17BC58" : "#FFFFFF",
+                  borderColor:
+                    selectedCategory === item ? "#17BC58" : "#3C3C3C",
+                  backgroundColor:
+                    selectedCategory === item ? "#17BC58" : "#FFFFFF",
                 },
               ]}
-              onPress={() => setSelected(item)}
+              onPress={() => handleSelect(item)}
             >
               <View>
                 <Text
                   style={[
                     styles.categoryText,
-                    { color: selected === item ? "#ffffff" : "#3C3C3C" },
+                    {
+                      color: selectedCategory === item ? "#ffffff" : "#3C3C3C",
+                    },
                   ]}
                 >
                   {item}
