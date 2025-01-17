@@ -16,9 +16,13 @@ import StarRating from "../components/StarRating";
 import RowBlocks from "../components/RowBlocks";
 import Entypo from "@expo/vector-icons/Entypo";
 import CartButton from "../components/CartButton";
+import SubmitButton from "../components/SubmitButton";
+import { useDispatch, useSelector } from "react-redux";
+import { addCartItem } from "../redux/features/cart/CartSlice";
 
 const ItemScreen = ({ route }) => {
   const item = route.params.item;
+  const dispatch = useDispatch();
 
   const [isFavorite, setIsFavorite] = useState(false);
   useEffect(() => {
@@ -113,14 +117,12 @@ const ItemScreen = ({ route }) => {
               </Text>
               <Text style={styles.priceText}>${item.price}</Text>
             </View>
-            <Pressable
-              style={styles.buttonContainer}
-              onPress={() => console.log("Add to Cart")}
-            >
-              <View style={styles.addToCartButton}>
-                <Text style={styles.addToCartText}>Add to Cart</Text>
-              </View>
-            </Pressable>
+            <SubmitButton
+              label={"Add to Cart"}
+              width={220}
+              height={70}
+              onPress={() => dispatch(addCartItem(item))}
+            />
           </View>
         </View>
       </View>

@@ -1,12 +1,16 @@
-import { StyleSheet, Text, View, Pressable } from "react-native";
+import { StyleSheet, Text, View, Pressable, FlatList } from "react-native";
 import React from "react";
 import BackButton from "../components/BackButton";
 import ScreenHeader from "../components/ScreenHeader";
 import IconButton from "../components/IconButton";
 import Entypo from "@expo/vector-icons/Entypo";
-import ItemListCard from "../components/ItemListCard";
+import CartItemListCard from "../components/CartItemListCard";
+import SubmitButton from "../components/SubmitButton";
+import { useDispatch, useSelector } from "react-redux";
 
 const CartScreen = () => {
+  const dispatch = useDispatch();
+  const { cartItems } = useSelector((state) => state.cart);
   return (
     <View style={styles.container}>
       <ScreenHeader
@@ -26,17 +30,22 @@ const CartScreen = () => {
         }
       />
       <View style={styles.bodyContainer}>
-        <ItemListCard />
+        <FlatList
+          data={cartItems}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item }) => <CartItemListCard item={item} />}
+          ItemSeparatorComponent={() => (
+            <View style={{ height: 1, backgroundColor: "#D6D6D6" }} />
+          )}
+          contentContainerStyle={{ gap: 15 }}
+        />
       </View>
       <View style={styles.buttonSection}>
-        <Pressable
-          style={styles.buttonContainer}
-          onPress={() => console.log("Add to Cart")}
-        >
-          <View style={styles.addToCartButton}>
-            <Text style={styles.addToCartText}>Checkout for $</Text>
-          </View>
-        </Pressable>
+        <SubmitButton
+          label={"Checkout"}
+          width="80%"
+          onPress={() => console.log("Checkout")}
+        />
       </View>
     </View>
   );

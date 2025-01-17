@@ -45,7 +45,7 @@ const ItemModal = ({ item, showModal, setShowModal }) => {
 
         <View style={styles.bodyContainer}>
           <View style={styles.imgContainer}>
-            <Image source={item.image} style={styles.img} />
+            <Image source={{ uri: item.image }} style={styles.img} />
           </View>
           <View style={styles.itemInfoContainer}>
             <View style={styles.infoSection}>

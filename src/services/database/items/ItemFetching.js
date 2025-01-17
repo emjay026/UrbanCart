@@ -1,9 +1,9 @@
-import { supabase } from "../../lib/supabase";
+import { supabase } from "../../../lib/supabase";
 import {
   setItems,
   setItemsError,
   setItemsLoading,
-} from "../../redux/features/items/ItemSlice";
+} from "../../../redux/features/items/ItemSlice";
 
 const fetchItems = () => async (dispatch) => {
   try {

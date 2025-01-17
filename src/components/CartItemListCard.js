@@ -4,12 +4,11 @@ import AntDesign from "@expo/vector-icons/AntDesign";
 import ItemModal from "../modal/ItemModal";
 import { useDispatch } from "react-redux";
 import { removeCartItem } from "../redux/features/cart/CartSlice";
-import { useNavigation } from "@react-navigation/native";
 
-const ItemListCard = ({ item }) => {
-  const navigation = useNavigation();
+const CartItemListCard = ({ item }) => {
   const dispatch = useDispatch();
 
+  const [showModal, setShowModal] = useState(false);
   const [itemQuantity, setitemQuantity] = useState(1);
 
   const showVariation = (data) => {
@@ -17,7 +16,12 @@ const ItemListCard = ({ item }) => {
   };
 
   return (
-    <Pressable onPress={() => navigation.navigate("Item", { item: item })}>
+    <Pressable onPress={() => setShowModal(true)}>
+      <ItemModal
+        item={item}
+        showModal={showModal}
+        setShowModal={setShowModal}
+      />
       <View style={styles.container}>
         <View style={styles.imageContainer}>
           <Image source={{ uri: item.image }} style={styles.img} />
@@ -51,9 +55,37 @@ const ItemListCard = ({ item }) => {
                 </Text>
               </View>
             </View>
+            <Pressable onPress={() => dispatch(removeCartItem(item.id))}>
+              <View style={styles.closeButton}>
+                <AntDesign name="close" size={22} color={"#6E6E6E"} />
+              </View>
+            </Pressable>
           </View>
           <View style={styles.quantityRow}>
             <Text style={styles.priceText}>${item.price}</Text>
+            <View style={styles.quantitySetContainer}>
+              <Pressable
+                onPress={() => setitemQuantity((prev) => Math.max(1, prev - 1))}
+              >
+                <View style={styles.quantitySetButton}>
+                  <AntDesign name="minus" size={20} color={"#6E6E6E"} />
+                </View>
+              </Pressable>
+              <View style={styles.quantityTextContainer}>
+                <Text style={styles.quantityText}>{itemQuantity}</Text>
+              </View>
+              <Pressable
+                onPress={() =>
+                  setitemQuantity((prev) => Math.min(40, prev + 1))
+                }
+              >
+                <View
+                  style={[styles.quantitySetButton, { borderColor: "#17BC58" }]}
+                >
+                  <AntDesign name="plus" size={20} color={"#17BC58"} />
+                </View>
+              </Pressable>
+            </View>
           </View>
         </View>
       </View>
@@ -61,7 +93,7 @@ const ItemListCard = ({ item }) => {
   );
 };
 
-export default ItemListCard;
+export default CartItemListCard;
 
 const styles = StyleSheet.create({
   quantityRow: {

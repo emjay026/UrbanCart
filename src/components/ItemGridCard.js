@@ -5,13 +5,15 @@ import { useNavigation } from "@react-navigation/native";
 const ItemGridCard = ({ item }) => {
   const navigation = useNavigation();
   return (
-    <Pressable onPress={() => navigation.navigate("Item", { item })}>
+    <Pressable onPress={() => navigation.navigate("Item", { item: item })}>
       <View style={styles.cardContainer}>
         <View style={styles.imgContainer}>
           <Image
-            source={{ uri: item.image }}
-            loadingIndicatorSource={require("../../assets/default_image.png")}
-            defaultSource={require("../../assets/default_image.png")}
+            source={
+              item?.image
+                ? { uri: item.image }
+                : require("../../assets/default_image.png")
+            }
             style={styles.img}
           />
         </View>

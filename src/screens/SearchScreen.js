@@ -61,12 +61,14 @@ const SearchScreen = () => {
           <Text style={styles.emptyStateText}>No results found</Text>
         </View>
       ) : (
-        <FlatList
-          data={filteredItems}
-          renderItem={({ item }) => <ItemListCard item={item} />}
-          keyExtractor={(item) => item.id.toString()}
-          contentContainerStyle={styles.listContainer}
-        />
+        <View style={styles.bodyContainer}>
+          <FlatList
+            data={filteredItems}
+            renderItem={({ item }) => <ItemListCard item={item} />}
+            keyExtractor={(item) => item.id.toString()}
+            contentContainerStyle={styles.listContainer}
+          />
+        </View>
       )}
     </View>
   );
@@ -79,6 +81,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
+  },
+  bodyContainer: {
+    flex: 1,
+    padding: 20,
   },
   text: {
     fontSize: 24,
@@ -99,6 +105,6 @@ const styles = StyleSheet.create({
     color: "#6E6E6E",
   },
   listContainer: {
-    padding: 10,
+    gap: 15,
   },
 });

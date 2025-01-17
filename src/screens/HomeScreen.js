@@ -8,7 +8,7 @@ import Octicons from "@expo/vector-icons/Octicons";
 import RowBlocks from "../components/RowBlocks";
 import CartButton from "../components/CartButton";
 import { useEffect } from "react";
-import { fetchItems } from "../services/database/ItemFetching";
+import { fetchItems } from "../services/database/items/ItemFetching";
 import { useDispatch, useSelector } from "react-redux";
 import Loading from "../components/Loading";
 
@@ -18,7 +18,6 @@ const HomeScreen = () => {
 
   useEffect(() => {
     dispatch(fetchItems());
-    console.log(error);
   }, [dispatch]);
 
   return (
@@ -26,13 +25,6 @@ const HomeScreen = () => {
       <ScreenHeader
         leftChild={<Text style={globalStyles.titleText}>Discover</Text>}
         rightChild={<CartButton />}
-      />
-      <InputBar
-        label={"Search"}
-        icon={<Octicons name="search" color={"#6E6E6E"} size={25} />}
-        onPress={() => {
-          console.log("Search");
-        }}
       />
       <HomeBanner />
       <View style={styles.categorySeperator}>
