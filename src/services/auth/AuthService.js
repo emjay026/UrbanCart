@@ -4,7 +4,7 @@ import {
   clearUser,
   setAuthLoading,
   setAuthError,
-} from "../../redux/features/auth/authSlice";
+} from "../../redux/features/auth/AuthSlice";
 import {
   saveSession,
   clearSession,

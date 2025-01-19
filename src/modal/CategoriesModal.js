@@ -9,7 +9,7 @@ import {
 
 const CategoriesModal = ({
   visible,
-  onClose,
+  setVisible,
   categories,
   onSelectCategory,
   selectedCategory,
@@ -18,14 +18,14 @@ const CategoriesModal = ({
     <Modal
       animationType="slide"
       visible={visible}
-      onRequestClose={onClose}
+      onRequestClose={() => setVisible(false)}
       presentationStyle="pageSheet"
     >
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
           <View style={styles.header}>
             <Text style={styles.title}>Categories</Text>
-            <Pressable onPress={onClose}>
+            <Pressable onPress={() => setVisible(false)}>
               <Text style={styles.closeButton}>×</Text>
             </Pressable>
           </View>
@@ -40,7 +40,7 @@ const CategoriesModal = ({
                 ]}
                 onPress={() => {
                   onSelectCategory(item);
-                  onClose();
+                  setVisible(false);
                 }}
               >
                 <Text

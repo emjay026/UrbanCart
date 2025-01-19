@@ -16,7 +16,7 @@ import SubmitButton from "../../components/SubmitButton";
 
 import { useDispatch, useSelector } from "react-redux";
 import { signUp } from "../../services/auth/AuthService";
-import { setAuthError } from "../../redux/features/auth/authSlice";
+import { setAuthError } from "../../redux/features/auth/AuthSlice";
 import Loading from "../../components/Loading";
 
 const SignUpScreen = ({ navigation }) => {

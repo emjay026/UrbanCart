@@ -4,23 +4,41 @@ import AntDesign from "@expo/vector-icons/AntDesign";
 import ItemModal from "../modal/ItemModal";
 import { useDispatch } from "react-redux";
 import { removeCartItem } from "../redux/features/cart/CartSlice";
+import { useEffect } from "react";
+import { updateCartItem } from "../redux/features/cart/CartSlice";
 
-const CartItemListCard = ({ item }) => {
+const CartListCard = ({ cartItem }) => {
+  const item = cartItem.item;
+
   const dispatch = useDispatch();
 
   const [showModal, setShowModal] = useState(false);
   const [itemQuantity, setitemQuantity] = useState(1);
 
-  const showVariation = (data) => {
-    return data === undefined ? { display: "none" } : { display: "flex" };
-  };
+  const [selectedStorage, setSelectedStorage] = useState(
+    cartItem.variation.storage
+  );
+  const [selectedColor, setSelectedColor] = useState(cartItem.variation.color);
+
+  useEffect(() => {
+    dispatch(
+      updateCartItem({
+        ...cartItem,
+        variation: { storage: selectedStorage, color: selectedColor },
+      })
+    );
+  }, [selectedStorage, selectedColor]);
 
   return (
     <Pressable onPress={() => setShowModal(true)}>
       <ItemModal
-        item={item}
-        showModal={showModal}
-        setShowModal={setShowModal}
+        visible={showModal}
+        setVisible={setShowModal}
+        cartItem={cartItem}
+        selectedStorage={selectedStorage}
+        selectedColor={selectedColor}
+        setSelectedStorage={setSelectedStorage}
+        setSelectedColor={setSelectedColor}
       />
       <View style={styles.container}>
         <View style={styles.imageContainer}>
@@ -37,25 +55,14 @@ const CartItemListCard = ({ item }) => {
                 {item.title}
               </Text>
               <View style={styles.attributeRow}>
-                <Text
-                  style={[
-                    styles.attrText,
-                    showVariation(item.variations.storage[0]),
-                  ]}
-                >
-                  {item.variations.storage[0]}
-                </Text>
-                <Text
-                  style={[
-                    styles.attrText,
-                    showVariation(item.variations.colors[0]),
-                  ]}
-                >
-                  {item.variations.colors[0]}
+                <Text style={styles.attrText}>
+                  {Object.values(cartItem.variation)
+                    .filter((value) => value !== undefined && value !== null)
+                    .join(", ")}
                 </Text>
               </View>
             </View>
-            <Pressable onPress={() => dispatch(removeCartItem(item.id))}>
+            <Pressable onPress={() => dispatch(removeCartItem(cartItem.id))}>
               <View style={styles.closeButton}>
                 <AntDesign name="close" size={22} color={"#6E6E6E"} />
               </View>
@@ -93,7 +100,7 @@ const CartItemListCard = ({ item }) => {
   );
 };
 
-export default CartItemListCard;
+export default CartListCard;
 
 const styles = StyleSheet.create({
   quantityRow: {
@@ -102,12 +109,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    //borderWidth: 1,
   },
   quantitySetContainer: {
     flexDirection: "row",
     alignItems: "center",
-    //borderWidth: 1,
   },
   quantitySetButton: {
     padding: 10,
@@ -120,22 +125,18 @@ const styles = StyleSheet.create({
     height: 30,
     justifyContent: "center",
     alignItems: "center",
-    //borderWidth: 1,
   },
   quantityText: {
     fontSize: 17,
-    //borderWidth: 1,
   },
   itemDescription: {
     flex: 1,
     flexDirection: "row",
-    //borderWidth: 1,
   },
   attributeRow: {
     flexDirection: "row",
     width: "100%",
     marginBottom: 10,
-    //borderWidth: 1,
   },
   attrText: {
     fontSize: 14,
@@ -146,7 +147,6 @@ const styles = StyleSheet.create({
   titleRow: {
     flex: 1,
     flexDirection: "column",
-    //borderWidth: 1,
   },
   priceText: {
     fontSize: 19,
@@ -157,19 +157,16 @@ const styles = StyleSheet.create({
     fontSize: 17,
     fontWeight: "600",
     width: "100%",
-    //borderWidth: 1,
   },
   closeButton: {
     paddingBottom: 17,
     paddingLeft: 20,
-    //borderWidth: 1,
   },
   container: {
     width: "100%",
     height: 110,
     flexDirection: "row",
     marginBottom: 15,
-    //borderWidth: 1,
   },
   imageContainer: {
     width: "30%",
@@ -188,6 +185,5 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingLeft: 15,
     flexDirection: "column",
-    //borderWidth: 1,
   },
 });

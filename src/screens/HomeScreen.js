@@ -55,8 +55,8 @@ const HomeScreen = () => {
             "All",
             ...Array.from(new Set(items.map((item) => item.category))),
           ]}
-          onSelect={setSelectedCategory}
-          selectedCategory={selectedCategory}
+          setSelected={setSelectedCategory}
+          selected={selectedCategory}
         />
       </View>
       <View style={styles.itemsList}>
@@ -71,7 +71,7 @@ const HomeScreen = () => {
       </View>
       <CategoriesModal
         visible={modalVisible}
-        onClose={() => setModalVisible(false)}
+        setVisible={setModalVisible}
         categories={[
           "All",
           ...Array.from(new Set(items.map((item) => item.category))),

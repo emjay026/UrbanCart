@@ -1,4 +1,3 @@
-// Import necessary components and libraries
 import { StyleSheet, Text, View, FlatList } from "react-native";
 import InputBar from "../components/InputBar";
 import Octicons from "@expo/vector-icons/Octicons";
@@ -7,7 +6,7 @@ import CartButton from "../components/CartButton";
 import { useState, useCallback } from "react";
 import { useSelector } from "react-redux";
 import debounce from "lodash.debounce";
-import ItemListCard from "../components/ItemListCard";
+import SearchListCard from "../components/SearchListCard";
 
 const SearchScreen = () => {
   // State for managing search input and filtered results
@@ -41,7 +40,7 @@ const SearchScreen = () => {
     <View style={styles.container}>
       {/* Header with title and cart button */}
       <ScreenHeader
-        leftChild={<Text style={styles.titleText}>Search</Text>}
+        centerChild={<Text style={styles.titleText}>Search</Text>}
         rightChild={<CartButton />}
       />
       {/* Search input field */}
@@ -64,7 +63,7 @@ const SearchScreen = () => {
         <View style={styles.bodyContainer}>
           <FlatList
             data={filteredItems}
-            renderItem={({ item }) => <ItemListCard item={item} />}
+            renderItem={({ item }) => <SearchListCard item={item} />}
             keyExtractor={(item) => item.id.toString()}
             contentContainerStyle={styles.listContainer}
           />
@@ -91,9 +90,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   titleText: {
-    fontSize: 24,
-    fontWeight: "300",
-    color: "#000",
+    fontSize: 20,
+    fontWeight: "500",
   },
   emptyState: {
     flex: 1,

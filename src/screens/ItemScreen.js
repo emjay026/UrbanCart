@@ -1,11 +1,4 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  Pressable,
-  ScrollView,
-} from "react-native";
+import { StyleSheet, Text, View, Image, ScrollView } from "react-native";
 import { useEffect, useState } from "react";
 import BackButton from "../components/BackButton";
 import ScreenHeader from "../components/ScreenHeader";
@@ -18,19 +11,86 @@ import Entypo from "@expo/vector-icons/Entypo";
 import CartButton from "../components/CartButton";
 import SubmitButton from "../components/SubmitButton";
 import { useDispatch, useSelector } from "react-redux";
-import { addCartItem } from "../redux/features/cart/CartSlice";
+import {
+  addWishListItem,
+  removeWishListItem,
+} from "../redux/features/wishlist/WishListSlice";
+import { addCartItem, removeCartItem } from "../redux/features/cart/CartSlice";
+import * as Crypto from "expo-crypto";
 
 const ItemScreen = ({ route }) => {
-  const item = route.params.item;
   const dispatch = useDispatch();
+  const { cartList } = useSelector((state) => state.cart);
+  const { wishList } = useSelector((state) => state.wishlist);
+  const currItem = route.params.item;
 
-  const [isFavorite, setIsFavorite] = useState(false);
+  const [selectedStorage, setSelectedStorage] = useState(
+    currItem.variations.storage[0]
+  );
+  const [selectedColor, setSelectedColor] = useState(
+    currItem.variations.colors[0]
+  );
+  const [currentCartItem, setCurrentCartItem] = useState(null);
+  const [currentWishItem, setCurrentWishItem] = useState(null);
+  const [isInCart, setIsInCart] = useState(false);
+  const [isInWishList, setIsInWishList] = useState(false);
+
+  const getCurrListItem = (item, list) => {
+    return list.find(
+      (listItem) =>
+        listItem.item.id === item.id &&
+        listItem.variation.storage === selectedStorage &&
+        listItem.variation.color === selectedColor
+    );
+  };
+
+  const newItem = async (currItem) => {
+    const uuid = await Crypto.randomUUID();
+    return {
+      id: uuid,
+      item: { ...currItem },
+      quantity: 1,
+      variation: {
+        storage: selectedStorage,
+        color: selectedColor,
+      },
+    };
+  };
+
   useEffect(() => {
-    // Fetch favorite status from database
-  }, [isFavorite]);
+    const cartItem = getCurrListItem(currItem, cartList);
+    const wishListItem = getCurrListItem(currItem, wishList);
+
+    setCurrentCartItem(cartItem);
+    setCurrentWishItem(wishListItem);
+    setIsInCart(!!cartItem);
+    setIsInWishList(!!wishListItem);
+  }, [cartList, wishList, selectedStorage, selectedColor, currItem]);
+
+  const handleAddToCart = async () => {
+    if (isInCart) {
+      dispatch(removeCartItem(currentCartItem.id));
+      setIsInCart(false);
+    } else {
+      const newCartItem = await newItem(currItem);
+      dispatch(addCartItem(newCartItem));
+      setIsInCart(true);
+    }
+  };
+
+  const handleAddToWishList = async () => {
+    if (isInWishList) {
+      dispatch(removeWishListItem(currentWishItem.id));
+      setIsInWishList(false);
+    } else {
+      const newWishItem = await newItem(currItem);
+      dispatch(addWishListItem(newWishItem));
+      setIsInWishList(true);
+    }
+  };
 
   const saleConditional = () => {
-    return item.price < item.prevPrice
+    return currItem.price < currItem.prevPrice
       ? { display: "flex" }
       : { display: "none" };
   };
@@ -46,15 +106,15 @@ const ItemScreen = ({ route }) => {
                 <Octicon
                   name={"heart-fill"}
                   size={25}
-                  color={isFavorite ? "#ED4444" : "#6E6E6E"}
+                  color={isInWishList ? "#ED4444" : "#6E6E6E"}
                 />
               }
-              onPress={() => setIsFavorite(!isFavorite)}
+              onPress={handleAddToWishList}
             />
             <View style={{ width: 10 }} />
             <IconButton
               icon={<Feather name={"share"} size={25} color={"#6E6E6E"} />}
-              onPress={() => console.log("Favorite")}
+              onPress={() => console.log("share")}
             />
             <View style={{ width: 10 }} />
             <CartButton />
@@ -63,7 +123,7 @@ const ItemScreen = ({ route }) => {
       />
       <View style={styles.bodyContainer}>
         <View style={styles.imgContainer}>
-          <Image source={{ uri: item.image }} style={styles.img} />
+          <Image source={{ uri: currItem.image }} style={styles.img} />
         </View>
         <View style={styles.itemInfoContainer}>
           <View style={styles.infoSection}>
@@ -73,7 +133,7 @@ const ItemScreen = ({ route }) => {
                 numberOfLines={2}
                 ellipsizeMode="tail"
               >
-                {item.title}
+                {currItem.title}
               </Text>
               <View style={[styles.onSaleContainer, saleConditional()]}>
                 <Text style={styles.onSaleText}>
@@ -89,23 +149,33 @@ const ItemScreen = ({ route }) => {
               <View style={styles.reviewsRow}>
                 <View style={styles.ratingContainer}>
                   <StarRating
-                    rating={item.ratings.average}
+                    rating={currItem.ratings.average}
                     iconSize={19}
                     fontSize={17}
                   />
                 </View>
                 <Text style={styles.ratingsCount}>
-                  {item.ratings.count} reviews
+                  {currItem.ratings.count} reviews
                 </Text>
               </View>
               <View style={styles.descriptContainer}>
-                <Text>{item.description}</Text>
+                <Text>{currItem.description}</Text>
               </View>
               <View style={styles.storageSelectionRow}>
-                <RowBlocks data={item.variations.storage} title={"Storage"} />
+                <RowBlocks
+                  data={currItem.variations.storage}
+                  title={"Storage"}
+                  selected={selectedStorage}
+                  setSelected={setSelectedStorage}
+                />
               </View>
               <View style={styles.colorSelectionRow}>
-                <RowBlocks data={item.variations.colors} title={"Colors"} />
+                <RowBlocks
+                  data={currItem.variations.colors}
+                  title={"Colors"}
+                  selected={selectedColor}
+                  setSelected={setSelectedColor}
+                />
               </View>
             </ScrollView>
           </View>
@@ -113,15 +183,15 @@ const ItemScreen = ({ route }) => {
           <View style={styles.buttonSection}>
             <View style={styles.priceContainer}>
               <Text style={[styles.prevPriceText, saleConditional()]}>
-                ${item.prevPrice}
+                ${currItem.prevPrice}
               </Text>
-              <Text style={styles.priceText}>${item.price}</Text>
+              <Text style={styles.priceText}>${currItem.price}</Text>
             </View>
             <SubmitButton
-              label={"Add to Cart"}
+              label={isInCart ? "Remove from Cart" : "Add to Cart"}
               width={220}
               height={70}
-              onPress={() => dispatch(addCartItem(item))}
+              onPress={handleAddToCart}
             />
           </View>
         </View>
@@ -267,7 +337,6 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    //height: "100%",
     backgroundColor: "#F1F3F2",
   },
 });

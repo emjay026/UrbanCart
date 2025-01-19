@@ -4,13 +4,14 @@ import BackButton from "../components/BackButton";
 import ScreenHeader from "../components/ScreenHeader";
 import IconButton from "../components/IconButton";
 import Entypo from "@expo/vector-icons/Entypo";
-import CartItemListCard from "../components/CartItemListCard";
+import CartListCard from "../components/CartListCard";
 import SubmitButton from "../components/SubmitButton";
 import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 
 const CartScreen = () => {
-  const dispatch = useDispatch();
-  const { cartItems } = useSelector((state) => state.cart);
+  const { cartList } = useSelector((state) => state.cart);
+
   return (
     <View style={styles.container}>
       <ScreenHeader
@@ -31,9 +32,8 @@ const CartScreen = () => {
       />
       <View style={styles.bodyContainer}>
         <FlatList
-          data={cartItems}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => <CartItemListCard item={item} />}
+          data={cartList}
+          renderItem={({ item }) => <CartListCard cartItem={item} />}
           ItemSeparatorComponent={() => (
             <View style={{ height: 1, backgroundColor: "#D6D6D6" }} />
           )}

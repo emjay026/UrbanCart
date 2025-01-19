@@ -7,9 +7,9 @@ const ScreenHeader = ({ leftChild, centerChild, rightChild }) => {
 
   return (
     <View style={[styles.container, { marginTop: insets.top }]}>
-      <View>{leftChild}</View>
-      <View>{centerChild}</View>
-      <View>{rightChild}</View>
+      <View style={styles.leftContainer}>{leftChild}</View>
+      <View style={styles.centerContainer}>{centerChild}</View>
+      <View style={styles.rightContainer}>{rightChild}</View>
     </View>
   );
 };
@@ -23,17 +23,23 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between",
+    justifyContent: "center",
     paddingHorizontal: 20,
     marginBottom: 20,
   },
   leftContainer: {
-    borderWidth: 1,
+    flex: 3,
+    alignItems: "flex-start",
+    //borderWidth: 1,
   },
   centerContainer: {
-    borderWidth: 1,
+    flex: 3,
+    alignItems: "center",
+    //borderWidth: 1,
   },
   rightContainer: {
-    borderWidth: 1,
+    flex: 3,
+    alignItems: "flex-end",
+    //borderWidth: 1,
   },
 });

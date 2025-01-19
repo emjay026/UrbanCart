@@ -19,8 +19,19 @@ import RowBlocks from "../components/RowBlocks";
 import Entypo from "@expo/vector-icons/Entypo";
 import CartButton from "../components/CartButton";
 import AntDesign from "@expo/vector-icons/AntDesign";
+import { useDispatch } from "react-redux";
 
-const ItemModal = ({ item, showModal, setShowModal }) => {
+const ItemModal = ({
+  visible,
+  setVisible,
+  cartItem,
+  selectedStorage,
+  selectedColor,
+  setSelectedStorage,
+  setSelectedColor,
+}) => {
+  const item = cartItem.item;
+
   const saleConditional = () => {
     return item.price < item.prevPrice
       ? { display: "flex" }
@@ -29,14 +40,14 @@ const ItemModal = ({ item, showModal, setShowModal }) => {
 
   return (
     <Modal
-      visible={showModal}
-      onRequestClose={() => setShowModal(false)}
+      visible={visible}
+      onRequestClose={() => setVisible(false)}
       animationType="slide"
       presentationStyle="pageSheet"
     >
       <View style={styles.container}>
         <View style={styles.closeContainer}>
-          <Pressable onPress={() => setShowModal(false)}>
+          <Pressable onPress={() => setVisible(false)}>
             <View style={styles.closeButton}>
               <AntDesign name="close" size={25} color={"#6E6E6E"} />
             </View>
@@ -88,10 +99,20 @@ const ItemModal = ({ item, showModal, setShowModal }) => {
                   <Text>{item.description}</Text>
                 </View>
                 <View style={styles.storageSelectionRow}>
-                  <RowBlocks data={item.variations.storage} title={"Storage"} />
+                  <RowBlocks
+                    data={item.variations.storage}
+                    title={"Storage"}
+                    selected={selectedStorage}
+                    setSelected={setSelectedStorage}
+                  />
                 </View>
                 <View style={styles.colorSelectionRow}>
-                  <RowBlocks data={item.variations.colors} title={"Colors"} />
+                  <RowBlocks
+                    data={item.variations.colors}
+                    title={"Colors"}
+                    selected={selectedColor}
+                    setSelected={setSelectedColor}
+                  />
                 </View>
               </ScrollView>
             </View>

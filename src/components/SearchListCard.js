@@ -1,20 +1,10 @@
 import { StyleSheet, Text, View, Image, Pressable } from "react-native";
-import { useState } from "react";
-import AntDesign from "@expo/vector-icons/AntDesign";
-import ItemModal from "../modal/ItemModal";
 import { useDispatch } from "react-redux";
-import { removeCartItem } from "../redux/features/cart/CartSlice";
 import { useNavigation } from "@react-navigation/native";
 
-const ItemListCard = ({ item }) => {
+const SearchListCard = ({ item }) => {
+  //const item = wishItem.item;
   const navigation = useNavigation();
-  const dispatch = useDispatch();
-
-  const [itemQuantity, setitemQuantity] = useState(1);
-
-  const showVariation = (data) => {
-    return data === undefined ? { display: "none" } : { display: "flex" };
-  };
 
   return (
     <Pressable onPress={() => navigation.navigate("Item", { item: item })}>
@@ -33,22 +23,7 @@ const ItemListCard = ({ item }) => {
                 {item.title}
               </Text>
               <View style={styles.attributeRow}>
-                <Text
-                  style={[
-                    styles.attrText,
-                    showVariation(item.variations.storage[0]),
-                  ]}
-                >
-                  {item.variations.storage[0]}
-                </Text>
-                <Text
-                  style={[
-                    styles.attrText,
-                    showVariation(item.variations.colors[0]),
-                  ]}
-                >
-                  {item.variations.colors[0]}
-                </Text>
+                <Text style={styles.attrText}>{item.category}</Text>
               </View>
             </View>
           </View>
@@ -61,7 +36,7 @@ const ItemListCard = ({ item }) => {
   );
 };
 
-export default ItemListCard;
+export default SearchListCard;
 
 const styles = StyleSheet.create({
   quantityRow: {

@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { View, Text } from "react-native";
 
 const CartButton = () => {
-  const { cartItems } = useSelector((state) => state.cart);
+  const { cartList } = useSelector((state) => state.cart);
   const navigation = useNavigation();
   return (
     <>
@@ -21,7 +21,7 @@ const CartButton = () => {
         onPress={() => navigation.navigate("Cart")}
       />
       <View style={styles.iconBadge}>
-        <Text style={styles.badgeText}>{cartItems.length}</Text>
+        <Text style={styles.badgeText}>{cartList.length}</Text>
       </View>
     </>
   );

@@ -1,9 +1,9 @@
 import { StyleSheet, Text, View, FlatList, Pressable } from "react-native";
 import { useState } from "react";
 
-const RowBlocks = ({ data, title, onSelect, selectedCategory }) => {
+const RowBlocks = ({ data, title, setSelected, selected }) => {
   const handleSelect = (item) => {
-    onSelect?.(item);
+    setSelected?.(item);
   };
 
   return (
@@ -26,10 +26,8 @@ const RowBlocks = ({ data, title, onSelect, selectedCategory }) => {
               style={[
                 styles.categoryItem,
                 {
-                  borderColor:
-                    selectedCategory === item ? "#17BC58" : "#3C3C3C",
-                  backgroundColor:
-                    selectedCategory === item ? "#17BC58" : "#FFFFFF",
+                  borderColor: selected === item ? "#17BC58" : "#3C3C3C",
+                  backgroundColor: selected === item ? "#17BC58" : "#FFFFFF",
                 },
               ]}
               onPress={() => handleSelect(item)}
@@ -39,7 +37,7 @@ const RowBlocks = ({ data, title, onSelect, selectedCategory }) => {
                   style={[
                     styles.categoryText,
                     {
-                      color: selectedCategory === item ? "#ffffff" : "#3C3C3C",
+                      color: selected === item ? "#ffffff" : "#3C3C3C",
                     },
                   ]}
                 >

@@ -3,7 +3,7 @@ import SearchScreen from "../screens/SearchScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import Octicons from "@expo/vector-icons/Octicons";
 import HomeScreen from "../screens/HomeScreen";
-import WishlistScreen from "../screens/WishlistScreen";
+import WishListScreen from "../screens/WishListScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -29,8 +29,8 @@ const TabNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="Wishlist"
-        component={WishlistScreen}
+        name="WishList"
+        component={WishListScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
             <Octicons name="heart" color={color} size={size} />
