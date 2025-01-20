@@ -28,7 +28,7 @@ const cartSlice = createSlice({
         (item) => item.id !== action.payload
       );
     },
-    updateCartItem: (state, action) => {
+    modifyCartItem: (state, action) => {
       state.cartList = state.cartList.map((item) => {
         if (item.id === action.payload.id) {
           return action.payload;
@@ -48,7 +48,7 @@ export const {
   setCartList,
   addCartItem,
   removeCartItem,
-  updateCartItem,
+  modifyCartItem,
   clearCart,
 } = cartSlice.actions;
 export default cartSlice.reducer;

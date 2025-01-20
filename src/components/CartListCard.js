@@ -3,9 +3,11 @@ import { useState } from "react";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import ItemModal from "../modal/ItemModal";
 import { useDispatch } from "react-redux";
-import { removeCartItem } from "../redux/features/cart/CartSlice";
 import { useEffect } from "react";
-import { updateCartItem } from "../redux/features/cart/CartSlice";
+import {
+  deleteCartItem,
+  updateCartItem,
+} from "../services/database/cart/CartDBOps";
 
 const CartListCard = ({ cartItem }) => {
   const item = cartItem.item;
@@ -24,10 +26,11 @@ const CartListCard = ({ cartItem }) => {
     dispatch(
       updateCartItem({
         ...cartItem,
+        quantity: itemQuantity,
         variation: { storage: selectedStorage, color: selectedColor },
       })
     );
-  }, [selectedStorage, selectedColor]);
+  }, [selectedStorage, selectedColor, itemQuantity]);
 
   return (
     <Pressable onPress={() => setShowModal(true)}>
@@ -62,7 +65,7 @@ const CartListCard = ({ cartItem }) => {
                 </Text>
               </View>
             </View>
-            <Pressable onPress={() => dispatch(removeCartItem(cartItem.id))}>
+            <Pressable onPress={() => dispatch(deleteCartItem(cartItem.id))}>
               <View style={styles.closeButton}>
                 <AntDesign name="close" size={22} color={"#6E6E6E"} />
               </View>

@@ -11,12 +11,15 @@ import Entypo from "@expo/vector-icons/Entypo";
 import CartButton from "../components/CartButton";
 import SubmitButton from "../components/SubmitButton";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  addWishListItem,
-  removeWishListItem,
-} from "../redux/features/wishlist/WishListSlice";
-import { addCartItem, removeCartItem } from "../redux/features/cart/CartSlice";
 import * as Crypto from "expo-crypto";
+import {
+  deleteCartItem,
+  createCartItem,
+} from "../services/database/cart/CartDBOps";
+import {
+  createWishListItem,
+  deleteWishListItem,
+} from "../services/database/wishlist/WishListDBOps";
 
 const ItemScreen = ({ route }) => {
   const dispatch = useDispatch();
@@ -69,22 +72,22 @@ const ItemScreen = ({ route }) => {
 
   const handleAddToCart = async () => {
     if (isInCart) {
-      dispatch(removeCartItem(currentCartItem.id));
+      dispatch(deleteCartItem(currentCartItem.id));
       setIsInCart(false);
     } else {
       const newCartItem = await newItem(currItem);
-      dispatch(addCartItem(newCartItem));
+      dispatch(createCartItem(newCartItem));
       setIsInCart(true);
     }
   };
 
   const handleAddToWishList = async () => {
     if (isInWishList) {
-      dispatch(removeWishListItem(currentWishItem.id));
+      dispatch(deleteWishListItem(currentWishItem.id));
       setIsInWishList(false);
     } else {
       const newWishItem = await newItem(currItem);
-      dispatch(addWishListItem(newWishItem));
+      dispatch(createWishListItem(newWishItem));
       setIsInWishList(true);
     }
   };

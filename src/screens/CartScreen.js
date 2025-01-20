@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Pressable, FlatList } from "react-native";
+import { StyleSheet, Text, View, FlatList, Alert } from "react-native";
 import React from "react";
 import BackButton from "../components/BackButton";
 import ScreenHeader from "../components/ScreenHeader";
@@ -8,9 +8,18 @@ import CartListCard from "../components/CartListCard";
 import SubmitButton from "../components/SubmitButton";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import { setCartError } from "../redux/features/cart/CartSlice";
 
 const CartScreen = () => {
-  const { cartList } = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
+  const { cartList, error } = useSelector((state) => state.cart);
+
+  useEffect(() => {
+    if (error) {
+      Alert.alert("Error", error);
+      dispatch(setCartError(null));
+    }
+  }, [dispatch, cartList]);
 
   return (
     <View style={styles.container}>

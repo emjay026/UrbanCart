@@ -27,7 +27,7 @@ const wishListSlice = createSlice({
         (item) => item.id !== action.payload
       );
     },
-    updateWishListItem: (state, action) => {
+    modifyWishListItem: (state, action) => {
       state.wishList = state.wishList.map((item) => {
         if (item.id === action.payload.id) {
           return action.payload;
@@ -44,7 +44,7 @@ export const {
   setWishListError,
   addWishListItem,
   removeWishListItem,
-  updateWishListItem,
+  modifyWishListItem,
 } = wishListSlice.actions;
 
 export default wishListSlice.reducer;

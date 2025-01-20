@@ -1,8 +1,8 @@
 import { StyleSheet, Text, View, Image, Pressable } from "react-native";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { useDispatch } from "react-redux";
-import { removeWishListItem } from "../redux/features/wishlist/WishListSlice";
 import { useNavigation } from "@react-navigation/native";
+import { deleteWishListItem } from "../services/database/wishlist/WishListDBOps";
 
 const WishListCard = ({ wishItem }) => {
   const item = wishItem.item;
@@ -34,7 +34,7 @@ const WishListCard = ({ wishItem }) => {
               </View>
             </View>
             <Pressable
-              onPress={() => dispatch(removeWishListItem(wishItem.id))}
+              onPress={() => dispatch(deleteWishListItem(wishItem.id))}
             >
               <View style={styles.closeButton}>
                 <AntDesign name="close" size={22} color={"#6E6E6E"} />

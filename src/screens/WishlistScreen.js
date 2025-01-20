@@ -1,15 +1,23 @@
-import { StyleSheet, Text, View, Pressable, FlatList } from "react-native";
-import React from "react";
-import BackButton from "../components/BackButton";
+import { StyleSheet, Text, View, FlatList, Alert } from "react-native";
+import React, { useEffect } from "react";
 import ScreenHeader from "../components/ScreenHeader";
 import IconButton from "../components/IconButton";
 import Entypo from "@expo/vector-icons/Entypo";
 import { useDispatch, useSelector } from "react-redux";
 import WishListCard from "../components/WishListCard";
+import { setWishListError } from "../redux/features/wishlist/WishListSlice";
 
 const WishListScreen = () => {
   const dispatch = useDispatch();
-  const { wishList } = useSelector((state) => state.wishlist);
+  const { wishList, error } = useSelector((state) => state.wishlist);
+
+  useEffect(() => {
+    if (error) {
+      Alert.alert("Error", error);
+      dispatch(setWishListError(null));
+    }
+  }, [dispatch, wishList]);
+
   return (
     <View style={styles.container}>
       <ScreenHeader

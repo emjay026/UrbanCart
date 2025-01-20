@@ -2,13 +2,13 @@ import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
 import globalStyles, { colorScheme } from "../GlobalStyles";
 import HomeBanner from "../components/HomeBanner";
 import ItemGridCard from "../components/ItemGridCard";
-import InputBar from "../components/InputBar";
 import ScreenHeader from "../components/ScreenHeader";
-import Octicons from "@expo/vector-icons/Octicons";
 import RowBlocks from "../components/RowBlocks";
 import CartButton from "../components/CartButton";
 import { useState, useEffect } from "react";
-import { fetchItems } from "../services/database/items/ItemFetching";
+import { readItems } from "../services/database/items/ItemDBOps";
+import { readCartList } from "../services/database/cart/CartDBOps";
+import { readWishListList } from "../services/database/wishlist/WishListDBOps";
 import { useDispatch, useSelector } from "react-redux";
 import Loading from "../components/Loading";
 import CategoriesModal from "../modal/CategoriesModal";
@@ -21,7 +21,9 @@ const HomeScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
-    dispatch(fetchItems());
+    dispatch(readItems());
+    dispatch(readCartList());
+    dispatch(readWishListList());
   }, [dispatch]);
 
   useEffect(() => {

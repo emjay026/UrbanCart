@@ -5,7 +5,7 @@ import {
   setItemsLoading,
 } from "../../../redux/features/items/ItemSlice";
 
-const fetchItems = () => async (dispatch) => {
+const readItems = () => async (dispatch) => {
   try {
     console.log("fetching items");
     dispatch(setItemsLoading(true));
@@ -19,4 +19,4 @@ const fetchItems = () => async (dispatch) => {
   }
 };
 
-export { fetchItems };
+export { readItems };
