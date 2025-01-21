@@ -60,18 +60,6 @@ const CartScreen = () => {
       <ScreenHeader
         leftChild={<BackButton />}
         centerChild={<Text style={styles.titleText}>My Cart</Text>}
-        rightChild={
-          <IconButton
-            icon={
-              <Entypo
-                name={"dots-three-horizontal"}
-                size={25}
-                color={"#6E6E6E"}
-              />
-            }
-            onPress={() => console.log("More")}
-          />
-        }
       />
       <View style={styles.bodyContainer}>
         <FlatList

@@ -6,6 +6,7 @@ import Entypo from "@expo/vector-icons/Entypo";
 import { useDispatch, useSelector } from "react-redux";
 import WishListCard from "../components/WishListCard";
 import { setWishListError } from "../redux/features/wishlist/WishListSlice";
+import CartButton from "../components/CartButton";
 
 const WishListScreen = () => {
   const dispatch = useDispatch();
@@ -22,18 +23,7 @@ const WishListScreen = () => {
     <View style={styles.container}>
       <ScreenHeader
         centerChild={<Text style={styles.titleText}>Wish List</Text>}
-        rightChild={
-          <IconButton
-            icon={
-              <Entypo
-                name={"dots-three-horizontal"}
-                size={25}
-                color={"#6E6E6E"}
-              />
-            }
-            onPress={() => console.log("More")}
-          />
-        }
+        rightChild={<CartButton />}
       />
       <View style={styles.bodyContainer}>
         <FlatList
