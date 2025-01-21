@@ -18,6 +18,7 @@ const InputBar = ({
         <TextInput
           placeholder={label}
           style={styles.input}
+          placeholderTextColor="#C6C6C6"
           keyboardType={keyboardType}
           autoCapitalize="none"
           autoCorrect={false}

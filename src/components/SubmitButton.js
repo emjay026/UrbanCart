@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
 
   addToCartText: {
     fontSize: 22,
-    fontWeight: "600",
+    fontWeight: "500",
     color: "white",
   },
 });

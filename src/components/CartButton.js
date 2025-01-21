@@ -21,7 +21,9 @@ const CartButton = () => {
         onPress={() => navigation.navigate("Cart")}
       />
       <View style={styles.iconBadge}>
-        <Text style={styles.badgeText}>{cartList.length}</Text>
+        <Text style={styles.badgeText}>
+          {cartList.reduce((acc, item) => acc + item.quantity, 0)}
+        </Text>
       </View>
     </>
   );

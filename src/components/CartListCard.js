@@ -15,7 +15,7 @@ const CartListCard = ({ cartItem }) => {
   const dispatch = useDispatch();
 
   const [showModal, setShowModal] = useState(false);
-  const [itemQuantity, setitemQuantity] = useState(1);
+  const [itemQuantity, setitemQuantity] = useState(cartItem.quantity);
 
   const [selectedStorage, setSelectedStorage] = useState(
     cartItem.variation.storage

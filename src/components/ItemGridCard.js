@@ -4,6 +4,13 @@ import { useNavigation } from "@react-navigation/native";
 
 const ItemGridCard = ({ item }) => {
   const navigation = useNavigation();
+
+  const saleConditional = () => {
+    return item.price < item.prevPrice
+      ? { display: "flex" }
+      : { display: "none" };
+  };
+
   return (
     <Pressable onPress={() => navigation.navigate("Item", { item: item })}>
       <View style={styles.cardContainer}>
@@ -37,6 +44,10 @@ const ItemGridCard = ({ item }) => {
             <Text style={styles.priceText}>${item.price}</Text>
           </View>
         </View>
+      </View>
+
+      <View style={[styles.onSaleContainer, saleConditional()]}>
+        <Text style={styles.onSaleText}>On Sale</Text>
       </View>
     </Pressable>
   );
@@ -89,5 +100,19 @@ const styles = StyleSheet.create({
   },
   priceContainer: {
     height: "35%",
+  },
+  onSaleContainer: {
+    position: "absolute",
+    top: 7,
+    right: 7,
+    padding: 5,
+    borderRadius: 10,
+    backgroundColor: "#ED4444",
+    opacity: 0.8,
+  },
+  onSaleText: {
+    fontSize: 10,
+    fontWeight: "500",
+    color: "white",
   },
 });
