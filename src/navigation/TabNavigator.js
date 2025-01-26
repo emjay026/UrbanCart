@@ -2,8 +2,10 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import SearchScreen from "../screens/SearchScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import Octicons from "@expo/vector-icons/Octicons";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import HomeScreen from "../screens/HomeScreen";
 import WishListScreen from "../screens/WishListScreen";
+import ChatScreen from "../screens/ChatScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -34,6 +36,19 @@ const TabNavigator = () => {
         options={{
           tabBarIcon: ({ color, size }) => (
             <Octicons name="heart" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="AI Chat"
+        component={ChatScreen}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons
+              name="robot-excited-outline"
+              size={size}
+              color={color}
+            />
           ),
         }}
       />
