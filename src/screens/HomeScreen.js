@@ -12,6 +12,7 @@ import { readWishListList } from "../services/database/wishlist/WishListDBOps";
 import { useDispatch, useSelector } from "react-redux";
 import Loading from "../components/Loading";
 import CategoriesModal from "../modal/CategoriesModal";
+import { readOrdersList } from "../services/database/orders/OrdersDBOps";
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
@@ -24,6 +25,7 @@ const HomeScreen = () => {
     dispatch(readItems());
     dispatch(readCartList());
     dispatch(readWishListList());
+    dispatch(readOrdersList());
   }, [dispatch]);
 
   useEffect(() => {

@@ -1,4 +1,4 @@
-import { Button, Pressable } from "react-native";
+import { Button, Pressable, Alert } from "react-native";
 import { StyleSheet, Text, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { signOut } from "../services/auth/AuthService";
@@ -30,6 +30,22 @@ const ProfileScreen = ({ navigation }) => {
           <OptionsCard
             label="Orders"
             onPress={() => navigation.navigate("Order")}
+          />
+          <OptionsCard
+            label="Returns"
+            onPress={() => Alert.alert("Notice", "No items yet!")}
+          />
+          <OptionsCard
+            label="Address"
+            onPress={() => Alert.alert("Notice", "No items yet!")}
+          />
+          <OptionsCard
+            label="Store Info"
+            onPress={() => Alert.alert("Notice", "No items yet!")}
+          />
+          <OptionsCard
+            label="Help"
+            onPress={() => Alert.alert("Notice", "No items yet!")}
           />
           <View style={{ flex: 1 }} />
           <OptionsCard

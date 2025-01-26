@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import { restoreSession } from "../services/auth/AuthService";
 import { StripeProvider } from "@stripe/stripe-react-native";
 import OrderScreen from "../screens/OrderScreen";
+import { MenuProvider } from "react-native-popup-menu";
 
 const Stack = createNativeStackNavigator();
 
@@ -21,23 +22,25 @@ const Main = () => {
   const { user } = useSelector((state) => state.auth);
   return (
     <StripeProvider publishableKey={process.env.EXPO_PUBLIC_STRIPE_PUBLIC_KEY}>
-      <NavigationContainer>
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
-          {user ? (
-            <>
-              <Stack.Screen name="MainTabs" component={TabNavigator} />
-              <Stack.Screen name="Item" component={ItemScreen} />
-              <Stack.Screen name="Cart" component={CartScreen} />
-              <Stack.Screen name="Order" component={OrderScreen} />
-            </>
-          ) : (
-            <>
-              <Stack.Screen name="SignIn" component={SignInScreen} />
-              <Stack.Screen name="SignUp" component={SignUpScreen} />
-            </>
-          )}
-        </Stack.Navigator>
-      </NavigationContainer>
+      <MenuProvider>
+        <NavigationContainer>
+          <Stack.Navigator screenOptions={{ headerShown: false }}>
+            {user ? (
+              <>
+                <Stack.Screen name="MainTabs" component={TabNavigator} />
+                <Stack.Screen name="Item" component={ItemScreen} />
+                <Stack.Screen name="Cart" component={CartScreen} />
+                <Stack.Screen name="Order" component={OrderScreen} />
+              </>
+            ) : (
+              <>
+                <Stack.Screen name="SignIn" component={SignInScreen} />
+                <Stack.Screen name="SignUp" component={SignUpScreen} />
+              </>
+            )}
+          </Stack.Navigator>
+        </NavigationContainer>
+      </MenuProvider>
     </StripeProvider>
   );
 };

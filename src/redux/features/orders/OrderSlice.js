@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  orders: [],
+  orderList: [],
   loading: false,
   error: null,
 };
@@ -11,7 +11,7 @@ const orderSlice = createSlice({
   initialState,
   reducers: {
     setOrders: (state, action) => {
-      state.orders = action.payload;
+      state.orderList = action.payload;
     },
     setOrdersLoading: (state, action) => {
       state.loading = action.payload;
@@ -20,15 +20,15 @@ const orderSlice = createSlice({
       state.error = action.payload;
     },
     addOrder: (state, action) => {
-      state.orders.push(action.payload);
+      state.orderList.push(action.payload);
     },
     removeOrder: (state, action) => {
-      state.orders = state.orders.filter(
+      orderList = state.orderList.filter(
         (order) => order.id !== action.payload
       );
     },
     modifyOrder: (state, action) => {
-      state.orders = state.orders.map((order) => {
+      state.orderList = state.orderList.map((order) => {
         if (order.id === action.payload.id) {
           return action.payload;
         }
@@ -36,7 +36,7 @@ const orderSlice = createSlice({
       });
     },
     clearOrders: (state) => {
-      state.orders = [];
+      state.orderList = [];
     },
   },
 });

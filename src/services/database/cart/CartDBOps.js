@@ -6,6 +6,7 @@ import {
   addCartItem,
   modifyCartItem,
   removeCartItem,
+  clearCart,
 } from "../../../redux/features/cart/CartSlice";
 
 const readCartList = () => async (dispatch) => {
@@ -64,4 +65,27 @@ const deleteCartItem = (itemId) => async (dispatch) => {
   }
 };
 
-export { readCartList, createCartItem, updateCartItem, deleteCartItem };
+const deleteAllCartItems = () => async (dispatch) => {
+  try {
+    console.log("deleting item from cart");
+    dispatch(setCartLoading(true));
+    dispatch(clearCart());
+    const { error } = await supabase
+      .from("cart")
+      .delete()
+      .not("id", "eq", "00000000-0000-0000-0000-000000000000");
+    if (error) throw error;
+  } catch (error) {
+    dispatch(setCartError(error.message));
+  } finally {
+    dispatch(setCartLoading(false));
+  }
+};
+
+export {
+  readCartList,
+  createCartItem,
+  updateCartItem,
+  deleteCartItem,
+  deleteAllCartItems,
+};

@@ -8,17 +8,18 @@ import {
 } from "react-native";
 import BackButton from "../components/BackButton";
 import ScreenHeader from "../components/ScreenHeader";
-import IconButton from "../components/IconButton";
-import Entypo from "@expo/vector-icons/Entypo";
 import CartListCard from "../components/CartListCard";
 import SubmitButton from "../components/SubmitButton";
 import { useDispatch, useSelector } from "react-redux";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { setCartError } from "../redux/features/cart/CartSlice";
-import { Input } from "react-native-elements";
 import InputModal from "../modal/InputModal";
+import * as Crypto from "expo-crypto";
+import { createOrder } from "../services/database/orders/OrdersDBOps";
+import { deleteAllCartItems } from "../services/database/cart/CartDBOps";
+import PopupMenu from "../components/PopupMenu";
 
-const CartScreen = () => {
+const CartScreen = ({ navigation }) => {
   const dispatch = useDispatch();
   const { cartList, error } = useSelector((state) => state.cart);
 
@@ -30,8 +31,38 @@ const CartScreen = () => {
 
   let [subTotal, setSubTotal] = useState(0);
   let [deliveryFee, setDeliveryFee] = useState(99);
+  let [tax, setTax] = useState(2.9);
   let [discount, setDiscount] = useState(0);
   let [numOfItems, setNumOfItems] = useState(0);
+
+  const newOrder = async (cartList) => {
+    const uuid = await Crypto.randomUUID();
+    return {
+      id: uuid,
+      time: new Date().toLocaleString(),
+      cart_items: [...cartList],
+      contact_number: "217-555-5555",
+      address: {
+        street: "1234 Elm St",
+        city: "Springfield",
+        state: "Illinois",
+        zip: "62704",
+      },
+      order_status: "Pending",
+      payment_status: "paid",
+      item_count: numOfItems,
+      tax: tax,
+      discount: discount,
+      delivery_fee: deliveryFee,
+      total_amount: total.toFixed(2),
+    };
+  };
+
+  const handleCheckout = async () => {
+    dispatch(createOrder(await newOrder(cartList)));
+    dispatch(deleteAllCartItems());
+    navigation.navigate("Order");
+  };
 
   useEffect(() => {
     if (showCouponModal === false) {
@@ -46,7 +77,10 @@ const CartScreen = () => {
     );
     setTotal(
       subTotal > 0
-        ? subTotal + deliveryFee - (subTotal * discount) / 100
+        ? subTotal +
+            deliveryFee -
+            (subTotal * discount) / 100 +
+            (subTotal * tax) / 100
         : subTotal
     );
     if (error) {
@@ -60,6 +94,7 @@ const CartScreen = () => {
       <ScreenHeader
         leftChild={<BackButton />}
         centerChild={<Text style={styles.titleText}>My Cart</Text>}
+        rightChild={<PopupMenu />}
       />
       <View style={styles.bodyContainer}>
         <FlatList
@@ -98,6 +133,10 @@ const CartScreen = () => {
           <Text style={styles.boardNums}>${deliveryFee.toFixed(2)}</Text>
         </View>
         <View style={styles.checkoutInfoRow}>
+          <Text style={styles.boardText}>Tax:</Text>
+          <Text style={styles.boardNums}>{tax.toFixed(1)}%</Text>
+        </View>
+        <View style={styles.checkoutInfoRow}>
           <Text style={styles.boardText}>Discount:</Text>
           <Text style={styles.boardNums}>{discount}%</Text>
         </View>
@@ -109,8 +148,10 @@ const CartScreen = () => {
       <View style={styles.buttonSection}>
         <SubmitButton
           label={"Checkout for $" + total.toFixed(2)}
+          status={cartList.length > 0}
           width="90%"
-          onPress={() => console.log("Checkout")}
+          height={65}
+          onPress={() => handleCheckout()}
         />
       </View>
       <InputModal
@@ -133,7 +174,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   checkoutBoard: {
-    height: "14%",
+    height: "16%",
     paddingHorizontal: 20,
   },
   boardText: {
@@ -207,7 +248,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     width: "100%",
-    height: 70,
+    height: 65,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 20,
