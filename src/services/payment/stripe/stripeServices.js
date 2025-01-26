@@ -1,21 +1,16 @@
+import { retrieveSetupIntent } from "@stripe/stripe-react-native";
 import { supabase } from "../../../lib/supabase";
 
 const fetchPaymentSheetParams = async (amount) => {
-  try {
-    console.log("fetching payment sheet params");
-    const { data, error } = await supabase.functions.invoke("payment_sheet", {
-      body: { amount },
-    });
-    if (error) throw error;
-    return data;
-  } catch (error) {
-    console.error("Error fetching payment sheet params:", error.message);
-    return null;
-  }
+  const feedback = await supabase.functions.invoke("payment-sheet", {
+    body: { amount },
+  });
+  return feedback;
 };
 
 const initializePaymentSheet = async (amount) => {
-  console.log("Initializing PaymentSheet of", amount);
-  const data = await fetchPaymentSheetParams(amount);
-  console.log("PaymentSheet params:", data);
+  console.log("Initializing PaymentSheet");
+  return await fetchPaymentSheetParams(amount);
 };
+
+export { initializePaymentSheet };

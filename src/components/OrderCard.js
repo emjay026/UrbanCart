@@ -10,7 +10,7 @@ import React from "react";
 import ItemModal from "../modal/ItemModal";
 import { useState } from "react";
 
-const OrderCard = ({ order }) => {
+const OrderCard = ({ order, isLast }) => {
   const [showModal, setShowModal] = useState(false);
   const [selectedItem, setSelectedItem] = useState(order.cart_items[0]);
 
@@ -40,7 +40,12 @@ const OrderCard = ({ order }) => {
   return (
     <View style={styles.card}>
       <View style={styles.orderBoard}>
-        <View style={styles.orderInfoRow}>
+        {isLast && (
+          <View style={styles.banner}>
+            <Text style={styles.bannerText}>Latest</Text>
+          </View>
+        )}
+        <View style={[styles.orderInfoRow, { marginTop: 7 }]}>
           <Text style={styles.boardText}>Order Date:</Text>
           <Text style={styles.boardInfo}>{order.time}</Text>
         </View>
@@ -121,6 +126,21 @@ const styles = StyleSheet.create({
   boardInfo: {
     fontSize: 15,
     fontWeight: "600",
+  },
+  banner: {
+    position: "absolute",
+    top: -20,
+    right: -20,
+    alignItems: "center",
+    backgroundColor: "#17BC58",
+    paddingVertical: 1,
+    paddingHorizontal: 10,
+    borderTopRightRadius: 15,
+  },
+  bannerText: {
+    fontSize: 13,
+    color: "#FFF",
+    fontWeight: "500",
   },
   dateText: {
     fontSize: 16,

@@ -19,10 +19,15 @@ import { createOrder } from "../services/database/orders/OrdersDBOps";
 import { deleteAllCartItems } from "../services/database/cart/CartDBOps";
 import PopupMenu from "../components/PopupMenu";
 import { initializePaymentSheet } from "../services/payment/stripe/stripeServices";
+import {
+  initPaymentSheet,
+  presentPaymentSheet,
+} from "@stripe/stripe-react-native";
 
 const CartScreen = ({ navigation }) => {
   const dispatch = useDispatch();
   const { cartList, error } = useSelector((state) => state.cart);
+  const { user } = useSelector((state) => state.auth);
 
   const [showCouponModal, setShowCouponModal] = useState(false);
   const [pressed, setPressed] = useState(false);
@@ -59,11 +64,44 @@ const CartScreen = ({ navigation }) => {
     };
   };
 
+  const openPaymentSheet = async () => {
+    const { error } = await presentPaymentSheet();
+    if (error) {
+      Alert.alert("Error", error);
+      return false;
+    }
+    return true;
+  };
+
   const handleCheckout = async () => {
-    initializePaymentSheet(Math.floor(total.toFixed(2) * 100));
-    // dispatch(createOrder(await newOrder(cartList)));
-    // dispatch(deleteAllCartItems());
-    // navigation.navigate("Order");
+    if (cartList.length === 0) return;
+    const { data, error } = await initializePaymentSheet(
+      Math.floor(total.toFixed(2) * 100)
+    );
+
+    if (error) {
+      Alert.alert("Error", error);
+      return;
+    }
+    const { paymentIntent, publishableKey } = data;
+    if (!paymentIntent || !publishableKey) {
+      Alert.alert("Error", error);
+      return;
+    }
+
+    await initPaymentSheet({
+      merchantDisplayName: "Urban Cart",
+      paymentIntentClientSecret: paymentIntent,
+      defaultBillingDetails: { name: user.email },
+    });
+    const success = await openPaymentSheet();
+    if (success) {
+      dispatch(createOrder(await newOrder(cartList)));
+      dispatch(deleteAllCartItems());
+      navigation.navigate("Order");
+    } else {
+      Alert.alert("Error", "Payment failed");
+    }
   };
 
   useEffect(() => {

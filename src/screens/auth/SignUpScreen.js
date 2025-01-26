@@ -22,6 +22,7 @@ import Loading from "../../components/Loading";
 const SignUpScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const dispatch = useDispatch();
   const { loading, error } = useSelector((state) => state.auth);
@@ -34,6 +35,10 @@ const SignUpScreen = ({ navigation }) => {
   }, [error]);
 
   const handleSignUp = () => {
+    if (password !== confirmPassword) {
+      Alert.alert("Error", "passwords do not match");
+      return;
+    }
     dispatch(signUp(email, password));
   };
 
@@ -73,8 +78,8 @@ const SignUpScreen = ({ navigation }) => {
         <InputBar
           label={"Confirm Password"}
           icon={<Octicons name="lock" color={"#6E6E6E"} size={25} />}
-          inputValue={password}
-          setInputValue={setPassword}
+          inputValue={confirmPassword}
+          setInputValue={setConfirmPassword}
           isPassword={true}
           textContentType="password"
         />

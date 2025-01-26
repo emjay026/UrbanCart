@@ -1,14 +1,13 @@
 import { StyleSheet, Text, View, FlatList, Alert } from "react-native";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import ScreenHeader from "../components/ScreenHeader";
 import BackButton from "../components/BackButton";
 import { useDispatch, useSelector } from "react-redux";
 import OrderCard from "../components/OrderCard";
 import { setOrdersError } from "../redux/features/orders/OrderSlice";
 import PopupMenu from "../components/PopupMenu";
-import { MenuProvider } from "react-native-popup-menu";
 
-const OrderScreen = ({ navigation }) => {
+const OrderScreen = () => {
   const dispatch = useDispatch();
   const { orderList, error } = useSelector((state) => state.orders);
 
@@ -29,8 +28,10 @@ const OrderScreen = ({ navigation }) => {
 
       <View style={styles.bodyContainer}>
         <FlatList
-          data={orderList}
-          renderItem={({ item }) => <OrderCard order={item} />}
+          data={[...orderList].reverse()}
+          renderItem={({ item, index }) => (
+            <OrderCard order={item} isLast={index === 0} />
+          )}
           contentContainerStyle={{ gap: 20 }}
         />
       </View>
