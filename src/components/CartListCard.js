@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Image, Pressable } from "react-native";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import ItemModal from "../modal/ItemModal";
 import { useDispatch } from "react-redux";
@@ -13,6 +13,7 @@ const CartListCard = ({ cartItem }) => {
   const item = cartItem.item;
 
   const dispatch = useDispatch();
+  const hasMounted = useRef(false);
 
   const [showModal, setShowModal] = useState(false);
   const [itemQuantity, setitemQuantity] = useState(cartItem.quantity);
@@ -23,13 +24,17 @@ const CartListCard = ({ cartItem }) => {
   const [selectedColor, setSelectedColor] = useState(cartItem.variation.color);
 
   useEffect(() => {
-    dispatch(
-      updateCartItem({
-        ...cartItem,
-        quantity: itemQuantity,
-        variation: { storage: selectedStorage, color: selectedColor },
-      })
-    );
+    if (hasMounted.current) {
+      dispatch(
+        updateCartItem({
+          ...cartItem,
+          quantity: itemQuantity,
+          variation: { storage: selectedStorage, color: selectedColor },
+        })
+      );
+    } else {
+      hasMounted.current = true;
+    }
   }, [selectedStorage, selectedColor, itemQuantity]);
 
   return (

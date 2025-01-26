@@ -18,6 +18,7 @@ import * as Crypto from "expo-crypto";
 import { createOrder } from "../services/database/orders/OrdersDBOps";
 import { deleteAllCartItems } from "../services/database/cart/CartDBOps";
 import PopupMenu from "../components/PopupMenu";
+import { initializePaymentSheet } from "../services/payment/stripe/stripeServices";
 
 const CartScreen = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -59,9 +60,10 @@ const CartScreen = ({ navigation }) => {
   };
 
   const handleCheckout = async () => {
-    dispatch(createOrder(await newOrder(cartList)));
-    dispatch(deleteAllCartItems());
-    navigation.navigate("Order");
+    initializePaymentSheet(Math.floor(total.toFixed(2) * 100));
+    // dispatch(createOrder(await newOrder(cartList)));
+    // dispatch(deleteAllCartItems());
+    // navigation.navigate("Order");
   };
 
   useEffect(() => {
