@@ -48,7 +48,7 @@ This project is inspired by a clean, user-friendly design aimed at providing an 
 
 1. **Clone the Repository**  
    ```bash  
-   git clone https://github.com/your-username/urban-cart.git  
+   git clone https://github.com/emjay026/urban-cart.git  
    cd urban-cart
 2. **Install Dependencies**
    ```bash
@@ -122,5 +122,11 @@ If you like this project:
 ## Disclaimer  
 This project is a learning exercise and may not be production-ready. Please perform thorough testing and security checks before using it in a live environment.  
 
----  
+--- 
+
+## Contact
+For questions or feedback, feel free to reach out:
+- Email: mojalefa.emjay01@gmail.com
+- Github: emjay026
+  
    
